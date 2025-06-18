@@ -14,6 +14,9 @@ export PATH=$HOME/.config/rofi/scripts:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/local/lua/install/bin
 
+
+alias codium="flatpak run com.vscodium.codium "
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
