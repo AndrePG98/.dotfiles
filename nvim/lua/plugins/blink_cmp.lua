@@ -57,15 +57,21 @@ local blink = { -- Autocompletion
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
       preset = 'default',
-      ['<Tab>'] = {
-        function(cmp)
-          if cmp.snippet_active() then
-            return cmp.accept()
-          else
-            return cmp.select_and_accept()
-          end
-        end,
-        'snippet_forward',
+      -- ['<Tab>'] = {
+      --   function(cmp)
+      --     if cmp.snippet_active() then
+      --       return cmp.accept()
+      --     else
+      --       return cmp.select_and_accept()
+      --     end
+      --   end,
+      --   'snippet_forward',
+      --   'fallback',
+      -- },
+      ['<TAB>'] = { 'select_next', 'fallback' },
+      ['<S-TAB>'] = { 'select_prev', 'fallback' },
+      ['<CR>'] = {
+        'select_and_accept',
         'fallback',
       },
 
