@@ -9,13 +9,15 @@ fi
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
+export DOTNET_ROOT=$HOME/.dotnet
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$HOME/.config/rofi/scripts:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/local/lua/install/bin
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 
 
-alias codium="flatpak run com.vscodium.codium "
+alias code="flatpak run com.vscodium.codium "
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,

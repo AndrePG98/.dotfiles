@@ -51,5 +51,19 @@ local vue_ls_config = {
   end,
 }
 
+local omnisharp = {
+  enable_roslyn_analyzers = true,
+  organize_imports_on_format = true,
+  enable_import_completion = true,
+  keys = {
+    {
+      'grd',
+      require('omnisharp_extended').lsp_definition(),
+      '[G]oto [D]efinition',
+    },
+  },
+}
+
 vim.lsp.config('vtsls', vtsls_config)
 vim.lsp.config('vue_ls', vue_ls_config)
+vim.lsp.config('omnisharp', omnisharp)
