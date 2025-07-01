@@ -14,6 +14,9 @@ return {
     { '\\', ':Neotree reveal right<CR>', desc = 'Toggle File Explorer', silent = true },
   },
   opts = {
+    source_selector = {
+      statusline = false,
+    },
     filesystem = {
       filtered_items = {
         visible = true,

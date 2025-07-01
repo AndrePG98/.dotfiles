@@ -1,103 +1,104 @@
 // -*- mode: jsonc -*-
 {
-    "reload_style_on_change": true,
-    "spacing": 10,
-    "output": "DP-3",
-    "height": 42,
-    "margin-top": 6,
-    "margin-left": 10,
-    "margin-right": 10,
-    "modules-center": ["wlr/taskbar"],
-    "modules-left": ["clock", "user"],
-    "modules-right": [
-	    "pulseaudio", "cpu", "custom/nvidia", 
-	    "memory", "privacy", "network", "custom/dunst",
-    ],
-    "hyprland/window": {"icon": true, "icon-size": 15},
-    "hyprland/workspaces": {}, "clock": {
-	"format": "{:%A, %d %b %Y | %H:%M}",
-	"tooltip": false,
+  "reload_style_on_change": true,
+  "spacing": 10,
+  "output": "DP-3",
+  "height": 42,
+  "margin-top": 6,
+  "margin-left": 10,
+  "margin-right": 10,
+  "modules-center": ["wlr/taskbar"],
+  "modules-left": ["clock", "user"],
+  "modules-right": [
+    "pulseaudio",
+    "cpu",
+    "custom/nvidia",
+    "memory",
+    "privacy",
+    "network",
+    "custom/dunst",
+  ],
+  "hyprland/window": { "icon": true, "icon-size": 15 },
+  "hyprland/workspaces": {},
+  "clock": {
+    "format": "{:%A, %d %b %Y | %H:%M}",
+    "tooltip": false,
+  },
+  "custom/ddcutil": {
+    "format": "{percentage}% {icon}",
+    "interval": 1,
+    "exec": "~/.config/waybar/scripts/ddcutil.sh",
+    "on-scroll-up": "ddcutil --noverify --bus 7 setvcp 10 + 10",
+    "on-scroll-down": "ddcutil --noverify --bus 7 setvcp 10 - 10",
+    "return-type": "json",
+  },
+  "custom/opensuse": {
+    "format": "",
+    "tooltip": true,
+  },
+  "cava": {
+    "cava_config": "/home/andre/.config/cava/config",
+  },
+  "custom/dunst": {
+    "exec": "~/.config/waybar/scripts/dunst.sh",
+    "on-click": "dunstctl set-paused toggle",
+    "restart-interval": 1,
+  },
+  "user": {
+    "format": "{work_H}h:{work_M}m",
+    "icon": false,
+  },
+  "network": {
+    "format": "",
+    "format-disconnected": "",
+    "interval": 10,
+    "tooltip-format": "Download: {bandwidthDownBytes}\nUpload: {bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", ""],
     },
-    "custom/ddcutil": {
-    	"format": "{percentage}% {icon}",
-	"interval": 1,
-	"exec": "~/.config/waybar/scripts/ddcutil.sh",
-	"on-scroll-up": "ddcutil --noverify --bus 7 setvcp 10 + 10",
-    	"on-scroll-down": "ddcutil --noverify --bus 7 setvcp 10 - 10",
-	"return-type": "json",
+    "scroll-step": 5,
+  },
+  "wlr/taskbar": {
+    "all-outputs": true,
+    "sort-by-app-id": true,
+    "icon-size": 30,
+    "tooltip-format": "{name}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+  },
+  "cpu": {
+    "format": "{usage}% ",
+    "interval": 10,
+  },
+  "custom/nvidia": {
+    "exec": "/home/andre/.config/waybar/scripts/nvidia.py",
+    "format": "{} ",
+    "interval": 10,
+    "tooltip": true,
+    "return-type": "json",
+  },
+  "memory": {
+    "format": "{percentage}% ",
+    "interval": 10,
+  },
+  "mpris": {
+    "format": "{player_icon} {status}",
+    "format-paused": "{status_icon} {status}",
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵",
     },
-    "custom/opensuse": {
-    	"format": "",
-	"tooltip": true,
+    "status-icons": {
+      "paused": "⏸",
     },
-    "cava": {
-	    "cava_config": "/home/andre/.config/cava/config"
-    },
-    "custom/dunst": {
-    	"exec": "~/.config/waybar/scripts/dunst.sh",
-	"on-click": "dunstctl set-paused toggle",
-	"restart-interval": 1,
-    },
-    "user": {
-	"format": "{work_H}h:{work_M}m",
-    	"icon": false,
-    },
-    "network": {
-   	"format": "",
-	"format-disconnected": "",
-	"interval": 10,
-	"tooltip-format": "Download: {bandwidthDownBytes}\nUpload: {bandwidthUpBytes}",
-	"tooltip-format-disconnected": "Disconnected",
-    },
-    "pulseaudio": {
-	    "format": "{volume}% {icon}",
-            "format-bluetooth": "{volume}% {icon}",
-            "format-muted": "",
-            "format-icons": {
-        	"default": ["", ""]
-    	    },
-    	"scroll-step": 5,
-    },
-    "wlr/taskbar": {
-	"all-outputs": true,
-	"sort-by-app-id": true,
-    	"icon-size": 30,
-	"tooltip-format": "{name}",
-	"on-click": "activate",
-	"on-click-middle": "close"
-    },
-    "cpu": {
-	"format": "{usage}% ",
-	"interval": 10,
-    },
-    "custom/nvidia": {
-	"exec": "/home/andre/.config/waybar/scripts/nvidia.py",
-	"format": "{} ",
-    	"interval": 10,
-	"tooltip": true,
-	"return-type": "json",
-    },
-    "memory": {
-	"format": "{percentage}% ",
-	"interval": 10,
-
-    },
-    "mpris": {
-	"format": "{player_icon} {status}",
-	"format-paused": "{status_icon} {status}",
-	"player-icons": {
-		"default": "▶",
-		"mpv": "🎵"
-	},
-	"status-icons": {
-		"paused": "⏸"
-	},
-     },
-     "privacy": {
-     	"modules": [
-		{"type":"audio-in"},
-		{"type":"screenshare"},
-	],
-     },
-
+  },
+  "privacy": {
+    "modules": [{ "type": "audio-in" }, { "type": "screenshare" }],
+  },
 }

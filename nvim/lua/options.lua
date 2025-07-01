@@ -30,4 +30,5 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.fillchars = { eob = ' ' }
+vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }

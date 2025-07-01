@@ -37,6 +37,7 @@ local conform = { -- Autoformat
       jsonc = { 'prettier' },
       cs = { 'csharpier' },
       php = { 'pint' },
+      svelte = { 'prettier' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
