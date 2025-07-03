@@ -4,8 +4,10 @@ vim.o.mouse = 'a'
 vim.o.showmode = false
 
 vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
+    vim.o.clipboard = 'unnamedplus'
 end)
+
+vim.diagnostic.config { virtual_text = false } -- Disable factory diagnostics for tiny inline
 
 vim.o.breakindent = true
 vim.o.undofile = true
