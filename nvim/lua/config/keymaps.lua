@@ -16,5 +16,5 @@ map('n', '<leader>q', ':bd<CR>', { desc = 'Close buffer', noremap = true, silent
 map('n', '<leader>w', ':w<CR>', { desc = 'Save buffer', noremap = true, silent = true })
 
 map({ 'n', 'x' }, 'gra', function()
-    require('tiny-code-action').code_action()
+    require('tiny-code-action').code_action {}
 end, { noremap = true, silent = true, desc = '[G]oto Code [A]ction' })

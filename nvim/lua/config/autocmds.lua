@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
-local save_path = vim.fn.stdpath 'config' .. '/lua/colorscheme.lua'
+local save_path = vim.fn.stdpath 'config' .. '/lua/config/colorscheme.lua'
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     callback = function()

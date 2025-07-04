@@ -25,6 +25,7 @@ vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.confirm = true
 
+vim.opt.termguicolors = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.expandtab = true
@@ -34,3 +35,5 @@ vim.opt.softtabstop = 4
 
 vim.opt.fillchars = { eob = ' ' }
 vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
+
+vim.notify = require 'notify'
