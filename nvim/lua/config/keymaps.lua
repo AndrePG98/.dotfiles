@@ -18,3 +18,5 @@ map('n', '<leader>w', ':w<CR>', { desc = 'Save buffer', noremap = true, silent =
 map({ 'n', 'x' }, 'gra', function()
     require('tiny-code-action').code_action {}
 end, { noremap = true, silent = true, desc = '[G]oto Code [A]ction' })
+
+map('n', '<leader>ss', ':Navbuddy<CR>', { silent = true, desc = '[S]earch [S]copes' })

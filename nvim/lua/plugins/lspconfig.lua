@@ -8,6 +8,26 @@ local lspconfig = {
         { 'j-hui/fidget.nvim', opts = {} },
 
         'saghen/blink.cmp',
+        {
+            'SmiteshP/nvim-navbuddy',
+            dependencies = {
+                'SmiteshP/nvim-navic',
+                'MunifTanjim/nui.nvim',
+            },
+            opts = {
+                window = {
+                    size = '75%',
+                },
+            },
+        },
+        {
+            'utilyre/barbecue.nvim',
+            dependencies = {
+                'SmiteshP/nvim-navic',
+                'nvim-tree/nvim-web-devicons',
+            },
+            opts = {},
+        },
     },
     config = function()
         vim.api.nvim_create_autocmd('LspAttach', {
@@ -79,6 +99,10 @@ local lspconfig = {
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
                     end, '[T]oggle Inlay [H]ints')
                 end
+
+                if client and client_supports_method(client, 'textDocument/documentSymbol', event.buf) then
+                    require('nvim-navbuddy').attach(client, event.buf)
+                end
             end,
         })
 
@@ -95,19 +119,19 @@ local lspconfig = {
                     [vim.diagnostic.severity.HINT] = '󰌶 ',
                 },
             } or {},
-            virtual_text = {
-                source = 'if_many',
-                spacing = 2,
-                format = function(diagnostic)
-                    local diagnostic_message = {
-                        [vim.diagnostic.severity.ERROR] = diagnostic.message,
-                        [vim.diagnostic.severity.WARN] = diagnostic.message,
-                        [vim.diagnostic.severity.INFO] = diagnostic.message,
-                        [vim.diagnostic.severity.HINT] = diagnostic.message,
-                    }
-                    return diagnostic_message[diagnostic.severity]
-                end,
-            },
+            -- virtual_text = {
+            --     source = 'if_many',
+            --     spacing = 2,
+            --     format = function(diagnostic)
+            --         local diagnostic_message = {
+            --             [vim.diagnostic.severity.ERROR] = diagnostic.message,
+            --             [vim.diagnostic.severity.WARN] = diagnostic.message,
+            --             [vim.diagnostic.severity.INFO] = diagnostic.message,
+            --             [vim.diagnostic.severity.HINT] = diagnostic.message,
+            --         }
+            --         return diagnostic_message[diagnostic.severity]
+            --     end,
+            -- },
         }
 
         local capabilities = require('blink.cmp').get_lsp_capabilities()
