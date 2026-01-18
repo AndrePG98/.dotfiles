@@ -147,14 +147,22 @@ local lspconfig = {
                     },
                 },
             },
-            vtsls = {},
-            vue_ls = {},
             omnisharp = {},
+            intelephense = {},
+            gopls = {
+                settings = {
+                    analyses = { unusedparams = true },
+                    staticcheck = true,
+                    gofumpt = true,
+                }
+            }
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
             'stylua', -- Used to format Lua code
+            'php-cs-fixer',
+            'gofumpt',
         })
         require 'config.lspconfig'
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
