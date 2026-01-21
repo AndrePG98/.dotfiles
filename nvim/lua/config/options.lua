@@ -9,6 +9,7 @@ end)
 
 vim.diagnostic.config { virtual_text = false } -- Disable factory diagnostics for tiny inline
 
+vim.o.relativenumber = true
 vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.ignorecase = true
