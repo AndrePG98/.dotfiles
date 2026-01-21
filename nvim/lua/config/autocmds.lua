@@ -18,3 +18,13 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         vim.g.SCHEME = params.match
     end,
 })
+
+-- Treesitter syntax highlighting
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'go', 'php', 'lua' },
+    callback = function()
+        vim.treesitter.start()
+        vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.wo[0][0].foldmethod = 'expr'
+    end,
+})

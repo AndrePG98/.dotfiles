@@ -151,11 +151,12 @@ local lspconfig = {
             intelephense = {},
             gopls = {
                 settings = {
+                    semanticTokens = true,
                     analyses = { unusedparams = true },
                     staticcheck = true,
                     gofumpt = true,
-                }
-            }
+                },
+            },
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
