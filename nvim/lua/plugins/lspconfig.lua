@@ -157,6 +157,7 @@ local lspconfig = {
                     gofumpt = true,
                 },
             },
+            sqls = {},
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})

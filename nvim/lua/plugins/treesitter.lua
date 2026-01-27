@@ -22,6 +22,7 @@ local treesitter = { -- Highlight, edit, and navigate code
             'typescript',
             'css',
             'php',
+            'docker',
         },
         -- Autoinstall languages that are not installed
         auto_install = true,
