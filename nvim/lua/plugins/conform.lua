@@ -1,3 +1,4 @@
+local home = vim.fn.expand '~'
 local conform = { -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
@@ -13,7 +14,7 @@ local conform = { -- Autoformat
         },
     },
     opts = {
-        notify_on_error = false,
+        notify_on_error = true,
         format_on_save = function(bufnr)
             -- Disable "format_on_save lsp_fallback" for languages that don't
             -- have a well standardized coding style. You can add additional
@@ -36,11 +37,9 @@ local conform = { -- Autoformat
             json = { 'prettier' },
             jsonc = { 'prettier' },
             cs = { 'csharpier' },
-            php = { 'php-cs-fixer' },
             svelte = { 'prettier' },
             go = { 'gofumpt' },
-            -- Conform can also run multiple formatters sequentially
-            -- python = { "isort", "black" },
+            php = { 'php-cs-fixer' }, -- Conform can also run multiple formatters sequentially python = { "isort", "black" },
             --
             -- You can use 'stop_after_first' to run the first available formatter from the list
             -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -50,7 +49,9 @@ local conform = { -- Autoformat
                 command = 'php-cs-fixer',
                 args = {
                     'fix',
+                    '--rules=@PSR12',
                     '$FILENAME',
+                    '--using-cache=no',
                 },
                 stdin = false,
             },
