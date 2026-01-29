@@ -148,7 +148,7 @@ local lspconfig = {
                 },
             },
             omnisharp = {},
-            intelephense = {},
+            phpactor = {},
             gopls = {
                 settings = {
                     semanticTokens = true,
