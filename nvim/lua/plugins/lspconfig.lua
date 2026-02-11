@@ -148,7 +148,13 @@ local lspconfig = {
                 },
             },
             omnisharp = {},
-            intelephense = {},
+            intelephense = {
+                settings = {
+                    telemetry = {
+                        enabled = false,
+                    },
+                },
+            },
             gopls = {
                 settings = {
                     semanticTokens = true,

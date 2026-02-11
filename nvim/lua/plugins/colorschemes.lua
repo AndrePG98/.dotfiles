@@ -13,6 +13,7 @@ return {
     },
     {
         'catppuccin/nvim',
+        name = 'catppuccin',
         priority = 1000,
     },
     {
@@ -21,6 +22,10 @@ return {
     },
     {
         'marko-cerovac/material.nvim',
+        priority = 1000,
+    },
+    {
+        'Mofiqul/dracula.nvim',
         priority = 1000,
     },
 }
