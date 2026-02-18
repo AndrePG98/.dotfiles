@@ -1,5 +1,9 @@
 return {
     {
+        'Shatur/neovim-ayu',
+        priority = 1000,
+    },
+    {
         'shaunsingh/nord.nvim',
         priority = 1000,
     },

@@ -2,7 +2,7 @@ local map = vim.keymap.set
 
 map('n', ';', ':', { noremap = true })
 map('n', ';', ':Telescope cmdline<CR>', { noremap = true })
--- map('v', '<esc>', '<cmd>nohlsearch<cr>')
+map('v', '<esc>', ':nohlsearch<CR>')
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
