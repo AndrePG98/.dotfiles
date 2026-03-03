@@ -12,6 +12,12 @@ local lint = {
                 markdown = { 'vale' },
                 php = { 'phpcs' },
                 go = { 'golangcilint' },
+                typescript = { 'oxlint' },
+                javascript = { 'oxlint' },
+                svelte = { 'oxlint' },
+                vue = { 'oxlint' },
+                javascriptreact = { 'oxlint' },
+                typescriptreact = { 'oxlint' },
                 -- Use the "*" filetype to run linters on all filetypes.
                 -- ['*'] = { 'global linter' },
                 -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
@@ -90,9 +96,6 @@ local lint = {
                 ctx.dirname = vim.fn.fnamemodify(ctx.filename, ':h')
                 names = vim.tbl_filter(function(name)
                     local linter = lint.linters[name]
-                    if not linter then
-                        LazyVim.warn('Linter not found: ' .. name, { title = 'nvim-lint' })
-                    end
                     return linter and not (type(linter) == 'table' and linter.condition and not linter.condition(ctx))
                 end, names)
 

@@ -23,6 +23,10 @@ local treesitter = { -- Highlight, edit, and navigate code
             'css',
             'php',
             'docker',
+            'vue',
+            'svelte',
+            'tsx',
+            'python',
         },
         -- Autoinstall languages that are not installed
         auto_install = true,

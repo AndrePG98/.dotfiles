@@ -121,6 +121,41 @@ local lspconfig = {
 
         local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+        -- WARN: npm install @vue/typescript-plugin --save-dev
+        local vue_plugin = {
+            name = '@vue/typescript-plugin',
+            location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+            languages = { 'vue' },
+            configNamespace = 'typescript',
+        }
+
+        local svelte_plugin = {
+            name = '@typescript-svelte-plugin',
+            location = vim.fn.stdpath 'data' .. '/mason/packages/svelte-language-server/node_modules/@sveltejs/ts-plugin',
+            languages = { 'svelte' },
+        }
+
+        vim.lsp.config('vtsls', {
+            filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+            settings = {
+                vtsls = {
+                    tsserver = {
+                        globalPlugins = { vue_plugin, svelte_plugin },
+                    },
+                },
+                typescript = {
+                    inlayHints = {
+                        parameterNames = { enabled = 'literals' },
+                        parameterTypes = { enabled = true },
+                        variableTypes = { enabled = true },
+                        propertyDeclarationTypes = { enabled = true },
+                        functionLikeReturnTypes = { enabled = true },
+                        enumMemberValues = { enabled = true },
+                    },
+                },
+            },
+        })
+
         local servers = {
             lua_ls = {
                 settings = {
@@ -128,11 +163,21 @@ local lspconfig = {
                         completion = {
                             callSnippet = 'Replace',
                         },
-                        -- diagnostics = { disable = { 'missing-fields' } },
                     },
                 },
             },
-            omnisharp = {},
+            omnisharp = {
+                enable_roslyn_analyzers = true,
+                organize_imports_on_format = true,
+                enable_import_completion = true,
+                keys = {
+                    {
+                        'grd',
+                        require('omnisharp_extended').lsp_definition(),
+                        '[G]oto [D]efinition',
+                    },
+                },
+            },
             intelephense = {
                 settings = {
                     telemetry = {
@@ -155,14 +200,17 @@ local lspconfig = {
                 },
             },
             sqls = {},
+            svelte = {},
+            vue_ls = {},
+            vtsls = {},
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
             'stylua', -- Used to format Lua code
             'gofumpt',
+            'vtsls',
         })
-        -- require 'config.vueconfig(deprecated)'
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
         require('mason-lspconfig').setup {
             ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)

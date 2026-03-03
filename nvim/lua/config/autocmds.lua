@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 -- Treesitter syntax highlighting
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'go', 'php', 'lua', 'dockerfile', 'sql' },
+    pattern = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte' },
     callback = function()
         pcall(vim.treesitter.start)
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"

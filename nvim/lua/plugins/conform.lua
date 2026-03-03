@@ -32,6 +32,9 @@ local conform = { -- Autoformat
         formatters_by_ft = {
             lua = { 'stylua' },
             typescript = { 'prettier' },
+            javascript = { 'prettier' },
+            javascriptreact = { 'prettier' },
+            typescriptreact = { 'prettier' },
             vue = { 'prettier' },
             html = { 'prettier' },
             json = { 'prettier' },
@@ -54,6 +57,9 @@ local conform = { -- Autoformat
                     '--using-cache=no',
                 },
                 stdin = false,
+            },
+            ['prettier'] = {
+                command = vim.fn.stdpath 'data' .. '/mason/bin/prettier.cmd',
             },
         },
     },
