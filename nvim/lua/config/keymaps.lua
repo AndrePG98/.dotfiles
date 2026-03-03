@@ -20,3 +20,14 @@ map({ 'n', 'x' }, 'gra', function()
 end, { noremap = true, silent = true, desc = '[G]oto Code [A]ction' })
 
 map('n', '<leader>ss', ':Navbuddy<CR>', { silent = true, desc = '[S]earch [S]copes' })
+
+-- ToggleTerm
+local terminal = require('toggleterm.terminal').Terminal
+
+local lazygit = terminal:new { cmd = 'lazygit', direction = 'float', display_name = 'lazygit' }
+
+map('n', '<leader>tg', function()
+    lazygit:toggle()
+end, { noremap = true, silent = true, desc = '[T]oggle lazy[G]it' })
+
+map('n', '<leader>tt', ':ToggleTerm direction=float name=terminal<CR>', { noremap = true, silent = true, desc = '[T]oggle [T]erminal' })
