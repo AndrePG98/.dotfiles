@@ -12,12 +12,12 @@ local lint = {
                 markdown = { 'vale' },
                 php = { 'phpcs' },
                 go = { 'golangcilint' },
-                typescript = { 'oxlint' },
-                javascript = { 'oxlint' },
-                svelte = { 'oxlint' },
-                vue = { 'oxlint' },
-                javascriptreact = { 'oxlint' },
-                typescriptreact = { 'oxlint' },
+                typescript = { 'eslint_d' },
+                javascript = { 'eslint_d' },
+                svelte = { 'eslint_d' },
+                vue = { 'eslint_d' },
+                javascriptreact = { 'eslint_d' },
+                typescriptreact = { 'eslint_d' },
                 -- Use the "*" filetype to run linters on all filetypes.
                 -- ['*'] = { 'global linter' },
                 -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.

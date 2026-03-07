@@ -137,6 +137,9 @@ local lspconfig = {
 
         vim.lsp.config('vtsls', {
             filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+            handlers = {
+                ['textDocument/documentHighlight'] = function() end,
+            },
             settings = {
                 vtsls = {
                     tsserver = {
@@ -154,6 +157,13 @@ local lspconfig = {
                     },
                 },
             },
+        })
+
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+        vim.lsp.config('cssls', {
+            capabilities = capabilities,
         })
 
         local servers = {
@@ -203,6 +213,8 @@ local lspconfig = {
             svelte = {},
             vue_ls = {},
             vtsls = {},
+            rust_analyzer = {},
+            tailwindcss = {},
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
