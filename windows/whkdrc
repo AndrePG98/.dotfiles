@@ -40,14 +40,17 @@ alt + shift + return    : komorebic promote
 # alt + oem_6             : komorebic cycle-stack next # oem_6 is ]
 
 # Resize
-alt + right    : komorebic resize-axis horizontal increase
-alt + left     : komorebic resize-axis horizontal decrease
-alt + up       : komorebic resize-axis vertical increase
-alt + down     : komorebic resize-axis vertical decrease
+# alt + right    : komorebic resize-axis horizontal increase
+# alt + left     : komorebic resize-axis horizontal decrease
+# alt + up       : komorebic resize-axis vertical increase
+# alt + down     : komorebic resize-axis vertical decrease
 
 # Manipulate windows
 alt + t                : komorebic toggle-float
 alt + f                : komorebic toggle-monocle
+
+ctrl + alt + shift + right  : komorebic cycle-layout next
+ctrl + alt + shift + left   : komorebic cycle-layout previous
 
 # # Window manager options
 # alt + shift + r         : komorebic retile

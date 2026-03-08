@@ -18,11 +18,32 @@
     "fps": 60,
     "style": "EaseOutSine"
   },
+  "display_index_preferences": {
+    "0": "36G09758SL0",
+    "1": "ETN7M0172604U",
+    "2": "405BOZP0D677"
+  },
   "monitors": [
     {
       "workspaces": [
         {
           "name": "I",
+          "layout": "Rows"
+        }
+      ]
+    },
+    {
+      "workspaces": [
+        {
+          "name": "II",
+          "layout": "BSP"
+        }
+      ]
+    },
+    {
+      "workspaces": [
+        {
+          "name": "III",
           "layout": "BSP"
         }
       ]
