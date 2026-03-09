@@ -39,4 +39,4 @@ vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 
 vim.opt.foldenable = false
 
-vim.notify = require 'notify'
+vim.notify = require 'snacks.notifier'

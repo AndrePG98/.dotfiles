@@ -21,14 +21,43 @@ end, { noremap = true, silent = true, desc = '[G]oto Code [A]ction' })
 
 map('n', '<leader>ss', ':Navbuddy<CR>', { silent = true, desc = '[S]earch [S]copes' })
 
--- ToggleTerm
-local terminal = require('toggleterm.terminal').Terminal
+map('n', '<leader>st', function()
+    local terminals = Snacks.terminal.list()
+    if #terminals == 0 then
+        vim.notify('No terminals open', vim.log.levels.WARN)
+        return
+    end
 
-local lazygit = terminal:new { cmd = 'lazygit', direction = 'float', display_name = 'lazygit' }
+    local pickers = require 'telescope.pickers'
+    local finders = require 'telescope.finders'
+    local conf = require('telescope.config').values
+    local actions = require 'telescope.actions'
+    local action_state = require 'telescope.actions.state'
 
-map('n', '<leader>tg', function()
-    lazygit:toggle()
-end, { noremap = true, silent = true, desc = '[T]oggle lazy[G]it' })
-
-map('n', '<leader>ta', ':ToggleTermToggleAll<CR>', { noremap = true, silent = true, desc = '[T]oggle [A]ll terminals' })
-map('n', '<leader>st', ':TermSelect<CR>', { noremap = true, silent = true, desc = '[S]earch [T]erminals' })
+    pickers
+        .new(require('telescope.themes').get_dropdown { previewer = false }, {
+            prompt_title = 'Terminals',
+            finder = finders.new_table {
+                results = terminals,
+                entry_maker = function(term)
+                    local title = vim.b[term.buf] and vim.b[term.buf].term_title or 'Terminal'
+                    local id = term.opts and term.opts.count or term.id or '?'
+                    return {
+                        value = term,
+                        display = string.format('%s: %s', id, title),
+                        ordinal = title,
+                    }
+                end,
+            },
+            sorter = conf.generic_sorter {},
+            attach_mappings = function(prompt_bufnr)
+                actions.select_default:replace(function()
+                    actions.close(prompt_bufnr)
+                    local term = action_state.get_selected_entry().value
+                    term:show()
+                end)
+                return true
+            end,
+        })
+        :find()
+end, { desc = '[S]earch [T]erminals' })

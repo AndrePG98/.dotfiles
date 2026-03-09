@@ -1,5 +1,7 @@
 return {
     'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
     ---@type snacks.Config
     opts = {
         ---@class snacks.dashboard.Config
@@ -23,6 +25,60 @@ return {
                 { icon = ' ', title = 'Projects', section = 'projects', indent = 3, padding = 2 },
                 { section = 'startup' },
             },
+        },
+        lazygit = {},
+        terminal = {
+            shell = vim.fn.has 'win32' == 1 and 'pwsh -NoLogo' or vim.o.shell,
+            win = { style = 'terminal' },
+        },
+        notifier = {
+            style = 'compact',
+            top_down = false,
+        },
+        dim = {},
+    },
+    keys = {
+        {
+            '<C-\\>',
+            function()
+                Snacks.terminal.toggle()
+            end,
+            desc = 'Toggle Terminal',
+            mode = { 'n', 't' },
+        },
+        {
+            '<leader>tt',
+            function()
+                Snacks.terminal.toggle(nil, { count = vim.v.count1 })
+            end,
+            desc = '[T]oggle [T]erminal by ID',
+        },
+        {
+            '<leader>st',
+            function()
+                Snacks.terminal.list()
+            end,
+            desc = '[S]earch [T]erminals',
+        },
+        {
+            '<leader>tg',
+            function()
+                Snacks.lazygit()
+            end,
+            desc = '[T]oggle [G]it',
+        },
+        {
+            '<leader>td',
+            function()
+                if vim.g.snacks_dim then
+                    Snacks.dim.disable()
+                    vim.g.snacks_dim = false
+                else
+                    Snacks.dim.enable()
+                    vim.g.snacks_dim = true
+                end
+            end,
+            desc = '[T]oggle [D]im',
         },
     },
 }
