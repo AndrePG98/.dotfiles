@@ -4,6 +4,8 @@ local bufferline = {
     dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {
         options = {
+            separator_style = 'slant',
+            sort_by = 'extension',
             offsets = {
                 { filetype = 'neo-tree', text = 'File Explorer', text_align = 'center', padding = '0', separator = true },
             },

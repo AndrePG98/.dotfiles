@@ -30,4 +30,5 @@ map('n', '<leader>tg', function()
     lazygit:toggle()
 end, { noremap = true, silent = true, desc = '[T]oggle lazy[G]it' })
 
-map('n', '<leader>tt', ':ToggleTerm direction=float name=terminal<CR>', { noremap = true, silent = true, desc = '[T]oggle [T]erminal' })
+map('n', '<leader>ta', ':ToggleTermToggleAll<CR>', { noremap = true, silent = true, desc = '[T]oggle [A]ll terminals' })
+map('n', '<leader>st', ':TermSelect<CR>', { noremap = true, silent = true, desc = '[S]earch [T]erminals' })
