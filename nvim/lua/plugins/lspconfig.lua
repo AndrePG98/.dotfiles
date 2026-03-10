@@ -28,6 +28,11 @@ local lspconfig = {
             },
             opts = {},
         },
+        {
+            'b0o/schemastore.nvim',
+            lazy = true,
+            version = false,
+        },
     },
     config = function()
         vim.api.nvim_create_autocmd('LspAttach', {
@@ -69,6 +74,11 @@ local lspconfig = {
                         return client.supports_method(method, { bufnr = bufnr })
                     end
                 end
+
+                vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+                    border = 'rounded',
+                    close_events = { 'CursorMoved', 'BufHidden' },
+                })
 
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
                 if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
@@ -159,11 +169,14 @@ local lspconfig = {
             },
         })
 
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities.textDocument.completion.completionItem.snippetSupport = true
+        local css_capabilities = vim.tbl_deep_extend(
+            'force',
+            require('blink.cmp').get_lsp_capabilities(),
+            { textDocument = { completion = { completionItem = { snippetSupport = true } } } }
+        )
 
         vim.lsp.config('cssls', {
-            capabilities = capabilities,
+            capabilities = css_capabilities,
         })
 
         local servers = {
@@ -197,16 +210,39 @@ local lspconfig = {
             },
             gopls = {
                 settings = {
-                    semanticTokens = true,
-                    analyses = {
-                        unusedparams = true,
-                        unusedwrite = true,
+                    gopls = {
+                        semanticTokens = true,
+                        analyses = {
+                            nilness = true,
+                            unusedparams = true,
+                            unusedwrite = true,
+                            useany = true,
+                        },
+                        usePlaceholders = true,
+                        completeUnimported = true,
+                        directoryFilters = { '-.git', '-.vscode', '-.idea', '-node_modules', '-vendor' },
+                        staticcheck = true,
+                        gofumpt = true,
+                        codelenses = {
+                            gc_details = false,
+                            generate = true,
+                            regenerate_cgo = true,
+                            run_govulncheck = true,
+                            test = true,
+                            tidy = true,
+                            upgrade_dependency = true,
+                            vendor = true,
+                        },
+                        hints = {
+                            assignVariableTypes = true,
+                            compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            constantValues = true,
+                            functionTypeParameters = true,
+                            parameterNames = true,
+                            rangeVariableTypes = true,
+                        },
                     },
-                    usePlaceholders = true,
-                    completeUnimported = true,
-                    directoryFilters = { '-.git', '-.vscode', '-.idea', '-node_modules', '-vendor' },
-                    staticcheck = true,
-                    gofumpt = true,
                 },
             },
             sqls = {},
@@ -215,13 +251,25 @@ local lspconfig = {
             vtsls = {},
             rust_analyzer = {},
             tailwindcss = {},
+            jsonls = {
+                filetypes = { 'json', 'jsonc', 'json5' },
+                before_init = function(_, new_config)
+                    new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+                    vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
+                end,
+                settings = {
+                    jsonls = {
+                        validate = { enabled = true },
+                        format = { enabled = true },
+                    },
+                },
+            },
         }
 
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
             'stylua', -- Used to format Lua code
             'gofumpt',
-            'vtsls',
         })
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
         require('mason-lspconfig').setup {

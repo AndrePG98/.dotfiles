@@ -12,8 +12,8 @@ return {
             preset = {
                 keys = {
                     { icon = ' ', key = 'r', desc = 'Restore Session', section = 'session' },
-                    { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
-                    { icon = ' ', key = 'c', desc = 'Change theme', action = ':Telescope colorscheme' },
+                    -- { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
+                    -- { icon = ' ', key = 'c', desc = 'Change theme', action = ':Telescope colorscheme' },
                     { icon = ' ', key = 's', desc = 'Config', action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
                     { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
                     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
@@ -36,6 +36,14 @@ return {
             top_down = false,
         },
         dim = {},
+        indent = {
+            enabled = true,
+            only_scope = true,
+            animate = {
+                enabled = false,
+            },
+        },
+        scratch = {},
     },
     keys = {
         {
@@ -79,6 +87,20 @@ return {
                 end
             end,
             desc = '[T]oggle [D]im',
+        },
+        {
+            '<leader>tc',
+            function()
+                Snacks.scratch()
+            end,
+            desc = '[T]oggle [S]cratch buffer',
+        },
+        {
+            '<leader>sb',
+            function()
+                Snacks.scratch.select()
+            end,
+            desc = '[S]earch scratch [B]uffers',
         },
     },
 }

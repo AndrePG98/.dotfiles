@@ -27,6 +27,7 @@ local treesitter = { -- Highlight, edit, and navigate code
             'svelte',
             'tsx',
             'python',
+            'json5',
         },
         -- Autoinstall languages that are not installed
         auto_install = true,
@@ -47,4 +48,9 @@ local treesitter = { -- Highlight, edit, and navigate code
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 }
 
-return { treesitter }
+local treesitter_textobjects = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    opts = {},
+}
+
+return { treesitter, treesitter_textobjects }

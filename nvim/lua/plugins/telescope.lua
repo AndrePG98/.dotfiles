@@ -82,11 +82,11 @@ local telescope = {
             }
         end, { desc = '[S]earch [H]elp' })
 
-        vim.keymap.set('n', '<leader>sb', function()
-            builtin.buffers(require('telescope.themes').get_dropdown {
-                previewer = false,
-            })
-        end, { desc = '[S]earch [B]uffers' })
+        -- vim.keymap.set('n', '<leader>sb', function()
+        --     builtin.buffers(require('telescope.themes').get_dropdown {
+        --         previewer = false,
+        --     })
+        -- end, { desc = '[S]earch [B]uffers' })
 
         vim.keymap.set('n', '<leader>sf', function()
             builtin.find_files(require('telescope.themes').get_dropdown {

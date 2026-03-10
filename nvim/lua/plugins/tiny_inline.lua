@@ -6,7 +6,10 @@ local inline = {
         preset = 'classic',
         options = {
             use_icons_from_diagnostic = true,
+            override_open_float = true,
             enable_on_select = true,
+            show_all_diags_on_cursorline = true,
+            sohw_diags_only_under_cursor = false,
             severity = {
                 vim.diagnostic.severity.ERROR,
                 vim.diagnostic.severity.WARN,

@@ -37,6 +37,11 @@ vim.opt.softtabstop = 4
 vim.opt.fillchars = { eob = ' ' }
 vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 
-vim.opt.foldenable = false
+vim.opt.foldenable = true
+vim.o.foldmethod = 'expr'
+vim.o.foldlevel = 99
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldtext = ''
 
 vim.notify = require 'snacks.notifier'
