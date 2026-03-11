@@ -13,7 +13,8 @@ alt + i                 : komorebic toggle-shortcuts
 # alt + b                 : if ($wshell.AppActivate('Chrome') -eq $False) { start chrome }
 
 alt + q                : komorebic close
-alt + m                : komorebic minimize
+alt + n                : komorebic minimize
+alt + m                 : komorebic toggle-maximize
 
 # Focus windows
 ctrl + left             : komorebic focus left
@@ -28,7 +29,7 @@ ctrl + shift + left              : komorebic move left
 ctrl + shift + down              : komorebic move down
 ctrl + shift + up                : komorebic move up
 ctrl + shift + right             : komorebic move right
-alt + shift + return    : komorebic promote
+alt + shift + return             : komorebic promote
 
 # Stack windows
 # alt + left              : komorebic stack left
