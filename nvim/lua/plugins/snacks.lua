@@ -44,6 +44,7 @@ return {
             },
         },
         scratch = {},
+        input = {},
     },
     keys = {
         {
@@ -91,9 +92,40 @@ return {
         {
             '<leader>tc',
             function()
-                Snacks.scratch()
+                vim.ui.input({ prompt = 'Scratch name: ' }, function(name)
+                    if name and name ~= '' then
+                        Snacks.scratch.open { name = name }
+                    else
+                        Snacks.scratch.open { name = 'Scratch' }
+                    end
+                end)
             end,
-            desc = '[T]oggle [S]cratch buffer',
+            desc = '[T]oggle s[C]ratch buffer',
+        },
+        {
+            '<leader>tX',
+            function()
+                local files = Snacks.scratch.list()
+
+                if #files == 0 then
+                    vim.notify('No scratch files found', vim.log.levels.INFO)
+                    return
+                end
+
+                local display = vim.tbl_map(function(f)
+                    return f.name .. ' [' .. f.ft .. ']'
+                end, files)
+
+                vim.ui.select(display, { prompt = 'Delete scratch file:' }, function(_, idx)
+                    if not idx then
+                        return
+                    end
+                    local file = files[idx]
+                    vim.fn.delete(file.file)
+                    vim.notify('Deleted: ' .. file.name, vim.log.levels.INFO)
+                end)
+            end,
+            desc = 'Delete scratch file',
         },
         {
             '<leader>sb',

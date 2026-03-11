@@ -18,9 +18,10 @@ local telescope = {
         local actions = require 'telescope.actions'
         require('telescope').setup {
             defaults = {
-                file_ignore_patters = {
+                file_ignore_patterns = {
                     'node_modules',
                     '.git/',
+                    'vendor',
                 },
                 mappings = {
                     i = {
@@ -63,14 +64,28 @@ local telescope = {
         vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
         vim.keymap.set('n', '<leader>sc', builtin.colorscheme, { desc = '[S]earch [C]olorscheme' })
 
-        vim.keymap.set('n', '<leader>sg', function()
+        vim.keymap.set('n', '<leader>sp', function()
             builtin.live_grep {
                 layout_config = {
                     width = 0.9,
                     preview_width = 0.5,
                 },
             }
-        end, { desc = '[S]earch by [G]rep' })
+        end, { desc = '[S]earch by [P]roject' })
+
+        vim.keymap.set('n', '<leader>sd', function()
+            vim.ui.input({ prompt = 'Grep in directory: ', default = './', completion = 'dir' }, function(dir)
+                if dir then
+                    builtin.live_grep {
+                        search_dirs = { dir },
+                        layout_config = {
+                            width = 0.9,
+                            preview_width = 0.5,
+                        },
+                    }
+                end
+            end)
+        end, { desc = '[S]earch in [D]irectory' })
 
         vim.keymap.set('n', '<leader>sh', function()
             builtin.help_tags {
@@ -82,11 +97,19 @@ local telescope = {
             }
         end, { desc = '[S]earch [H]elp' })
 
-        -- vim.keymap.set('n', '<leader>sb', function()
-        --     builtin.buffers(require('telescope.themes').get_dropdown {
-        --         previewer = false,
-        --     })
-        -- end, { desc = '[S]earch [B]uffers' })
+        vim.keymap.set('n', '<leader>se', function()
+            vim.ui.input({ prompt = 'File pattern (e.g. *.lua): ' }, function(pattern)
+                if pattern then
+                    builtin.live_grep {
+                        glob_pattern = pattern,
+                        layout_config = {
+                            width = 0.9,
+                            preview_width = 0.5,
+                        },
+                    }
+                end
+            end)
+        end, { desc = '[S]earch by fil[E] pattern' })
 
         vim.keymap.set('n', '<leader>sf', function()
             builtin.find_files(require('telescope.themes').get_dropdown {
