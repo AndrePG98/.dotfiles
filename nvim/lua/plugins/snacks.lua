@@ -56,20 +56,6 @@ return {
             mode = { 'n', 't' },
         },
         {
-            '<leader>tt',
-            function()
-                Snacks.terminal.toggle(nil, { count = vim.v.count1 })
-            end,
-            desc = '[T]oggle [T]erminal by ID',
-        },
-        -- {
-        --     '<leader>st',
-        --     function()
-        --         Snacks.terminal.list()
-        --     end,
-        --     desc = '[S]earch [T]erminals',
-        -- },
-        {
             '<leader>tg',
             function()
                 Snacks.lazygit()
