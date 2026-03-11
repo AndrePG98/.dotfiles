@@ -201,10 +201,14 @@ local lspconfig = {
                     },
                 },
             },
+            --@type vim.lsp.config
             intelephense = {
+                root_markers = { '.git', 'composer.json', 'wp-config.php' },
                 settings = {
-                    telemetry = {
-                        enabled = false,
+                    intelephense = {
+                        telemetry = {
+                            enabled = false,
+                        },
                     },
                 },
             },
