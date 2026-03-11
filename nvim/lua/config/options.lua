@@ -1,3 +1,4 @@
+vim.env.PATH = vim.fn.stdpath 'data' .. '\\mason\\bin;' .. vim.env.PATH
 vim.g.have_nerd_font = true
 vim.o.number = true
 vim.o.mouse = 'a'
@@ -7,7 +8,6 @@ vim.schedule(function()
     vim.o.clipboard = 'unnamedplus'
 end)
 
-vim.diagnostic.config { virtual_text = false }
 vim.o.relativenumber = true
 vim.o.wrap = false
 vim.o.breakindent = true
@@ -40,7 +40,6 @@ vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 vim.opt.foldenable = true
 vim.o.foldmethod = 'expr'
 vim.o.foldlevel = 99
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.opt.foldtext = ''
 

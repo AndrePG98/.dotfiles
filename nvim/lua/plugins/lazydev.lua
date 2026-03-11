@@ -8,9 +8,19 @@ return {
             library = {
                 -- Load luvit types when the `vim.uv` word is found
                 { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-                'nvim-dap-ui',
-                'nvim-dap',
+                -- load plugin types when their global is referenced
+                { path = 'snacks.nvim', words = { 'Snacks' } },
+                { path = 'lazy.nvim', words = { 'LazyVim', 'Lazy' } },
+                { path = 'nvim-dap-ui', words = { 'dapui' } },
+                { path = 'nvim-dap', words = { 'dap' } },
+                { path = 'which-key.nvim', words = { 'wk' } },
+                -- always loaded (no condition)
+                'nvim-treesitter',
             },
+            integrations = {
+                lspconfig = true,
+            },
+            enabled = true,
         },
     },
 }

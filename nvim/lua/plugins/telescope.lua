@@ -74,17 +74,33 @@ local telescope = {
         end, { desc = '[S]earch by [P]roject' })
 
         vim.keymap.set('n', '<leader>sd', function()
-            vim.ui.input({ prompt = 'Grep in directory: ', default = './', completion = 'dir' }, function(dir)
-                if dir then
-                    builtin.live_grep {
-                        search_dirs = { dir },
-                        layout_config = {
-                            width = 0.9,
-                            preview_width = 0.5,
-                        },
-                    }
+            local function grep_in_dir(dir)
+                require('telescope.builtin').live_grep {
+                    search_dirs = { dir },
+                    layout_config = { width = 0.9, preview_width = 0.5 },
+                }
+            end
+
+            -- check if neo-tree is the focused window
+            local filetype = vim.bo.filetype
+            if filetype == 'neo-tree' then
+                local state = require('neo-tree.sources.manager').get_state 'filesystem'
+                local node = state.tree:get_node()
+                local path = node.path
+
+                -- if it's a file, use its parent directory
+                if node.type == 'file' then
+                    path = vim.fn.fnamemodify(path, ':h')
                 end
-            end)
+
+                grep_in_dir(path)
+            else
+                vim.ui.input({ prompt = 'Grep in directory: ', default = './', completion = 'dir' }, function(dir)
+                    if dir then
+                        grep_in_dir(dir)
+                    end
+                end)
+            end
         end, { desc = '[S]earch in [D]irectory' })
 
         vim.keymap.set('n', '<leader>sh', function()

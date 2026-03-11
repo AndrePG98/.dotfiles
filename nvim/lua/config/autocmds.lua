@@ -19,13 +19,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     end,
 })
 
-vim.api.nvim_create_autocmd('TermOpen', {
-    pattern = 'term://*toggleterm#*',
-    callback = function()
-        set_terminal_keymaps()
-    end,
-})
-
 -- Treesitter syntax highlighting
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte' },

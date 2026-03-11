@@ -179,16 +179,27 @@ local lspconfig = {
             capabilities = css_capabilities,
         })
 
-        local servers = {
-            lua_ls = {
-                settings = {
-                    Lua = {
-                        completion = {
-                            callSnippet = 'Replace',
-                        },
+        vim.lsp.config('lua_ls', {
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = 'LuaJIT',
+                        pathStrict = false, -- This is where magic happens
                     },
+                    workspace = {
+                        checkThirdParty = false,
+                        ignoreDir = {},
+                    },
+                    telemetry = {
+                        enable = false,
+                    },
+                    completion = { callSnippet = 'Replace' },
+                    hint = { enable = true },
                 },
             },
+        })
+
+        local servers = {
             omnisharp = {
                 enable_roslyn_analyzers = true,
                 organize_imports_on_format = true,

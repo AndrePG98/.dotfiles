@@ -62,13 +62,13 @@ return {
             end,
             desc = '[T]oggle [T]erminal by ID',
         },
-        {
-            '<leader>st',
-            function()
-                Snacks.terminal.list()
-            end,
-            desc = '[S]earch [T]erminals',
-        },
+        -- {
+        --     '<leader>st',
+        --     function()
+        --         Snacks.terminal.list()
+        --     end,
+        --     desc = '[S]earch [T]erminals',
+        -- },
         {
             '<leader>tg',
             function()
@@ -92,7 +92,7 @@ return {
         {
             '<leader>tc',
             function()
-                vim.ui.input({ prompt = 'Scratch name: ' }, function(name)
+                Snacks.input({ prompt = 'Scratch name: ' }, function(name)
                     if name and name ~= '' then
                         Snacks.scratch.open { name = name }
                     else
