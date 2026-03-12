@@ -1,4 +1,3 @@
-vim.env.PATH = vim.fn.stdpath 'data' .. '\\mason\\bin;' .. vim.env.PATH
 vim.g.have_nerd_font = true
 vim.o.number = true
 vim.o.mouse = 'a'

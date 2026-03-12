@@ -15,6 +15,22 @@ local nvim_dap = {
         local dap_virtual_text = require 'nvim-dap-virtual-text'
         local dap_go = require 'dap-go'
 
+        local function get_local_root()
+            local co = coroutine.running()
+            Snacks.input({
+                prompt = 'Docker remote /var/www/html maps to (blank for cwd): ',
+                default = '',
+                completion = 'file',
+            }, function(value)
+                coroutine.resume(co, value)
+            end)
+            local input = coroutine.yield()
+            if not input or input == '' then
+                return vim.fn.getcwd()
+            end
+            return vim.fn.expand(input)
+        end
+
         vim.fn.sign_define('DapBreakpoint', { text = '\u{f111}', texthl = 'DapBreakpoint' })
         vim.fn.sign_define('DapBreakpointCondition', { text = '\u{f192}', texthl = 'DapBreakpointCondition' })
         vim.fn.sign_define('DapBreakpointRejected', { text = '\u{f10c}', texthl = 'DapBreakpointRejected' })
@@ -46,6 +62,9 @@ local nvim_dap = {
                     name = 'Listen for xdebug',
                     port = 9003,
                     console = 'integratedTerminal',
+                    pathMappings = {
+                        ['/var/www/html'] = get_local_root,
+                    },
                 },
                 {
                     type = 'php',
