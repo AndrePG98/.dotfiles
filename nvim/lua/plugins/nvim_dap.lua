@@ -62,6 +62,13 @@ local nvim_dap = {
                     name = 'Listen for xdebug',
                     port = 9003,
                     console = 'integratedTerminal',
+                },
+                {
+                    type = 'php',
+                    request = 'launch',
+                    name = 'Listen for xdebug (Docker with /var/www/html)',
+                    port = 9003,
+                    console = 'integratedTerminal',
                     pathMappings = {
                         ['/var/www/html'] = get_local_root,
                     },
