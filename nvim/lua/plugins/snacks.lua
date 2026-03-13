@@ -45,6 +45,7 @@ return {
         },
         scratch = {},
         input = {},
+        bufdelete = {},
     },
     keys = {
         {
@@ -119,6 +120,13 @@ return {
                 Snacks.scratch.select()
             end,
             desc = '[S]earch scratch [B]uffers',
+        },
+        {
+            '<leader>q',
+            function()
+                Snacks.bufdelete()
+            end,
+            desc = '[Q]uit Current Buffer',
         },
     },
 }
