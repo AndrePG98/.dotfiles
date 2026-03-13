@@ -3,17 +3,16 @@ local inline = {
     event = 'LspAttach', -- Or `LspAttach`
     priority = 1000, -- needs to be loaded in first
     opts = {
-        preset = 'classic',
+        preset = 'minimal',
         options = {
+            -- Uncomment to show all diagnostics without hovering
+            multilines = {
+                enabled = true,
+                always_show = true,
+                severity = { vim.diagnostic.severity.ERROR },
+            },
             use_icons_from_diagnostic = true,
             override_open_float = true,
-            enable_on_select = true,
-            show_all_diags_on_cursorline = true,
-            show_diags_only_under_cursor = false,
-            severity = {
-                vim.diagnostic.severity.ERROR,
-                vim.diagnostic.severity.WARN,
-            },
         },
     },
 }
@@ -28,4 +27,10 @@ local actions = {
     opts = {},
 }
 
-return { inline, actions }
+local fastaction = {
+    'Chaitanyabsprip/fastaction.nvim',
+    ---@type FastActionConfig
+    opts = {},
+}
+
+return { inline, actions, fastaction }

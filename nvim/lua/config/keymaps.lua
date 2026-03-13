@@ -14,9 +14,11 @@ map('n', '<S-Tab>', ':bprevious<CR>', { noremap = true, silent = true, desc = 'P
 map('n', '<leader>Q', ':wqa<CR>', { desc = 'Quit editor', noremap = true, silent = true })
 map('n', '<leader>w', ':w<CR>', { desc = 'Save buffer', noremap = true, silent = true })
 
-map({ 'n', 'x' }, 'gra', function()
+map({ 'n', 'x' }, 'grA', function()
     require('tiny-code-action').code_action {}
-end, { noremap = true, silent = true, desc = '[G]oto Code [A]ction' })
+end, { noremap = true, silent = true, desc = '[G]oto All Code [A]ction' })
+
+map({ 'n', 'x' }, 'gra', ':lua require("fastaction").code_action()<CR>', { desc = '[G]oto cursor code [A]ctions', buffer = bufnr })
 
 map('n', '<leader>ss', ':Navbuddy<CR>', { silent = true, desc = '[S]earch [S]copes' })
 
@@ -77,3 +79,4 @@ end)
 -- map({ 'x', 'o' }, 'as', function()
 --     require('nvim-treesitter-textobjects.select').select_textobject('@local.scope', 'locals')
 -- end)
+--

@@ -43,3 +43,16 @@ vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.opt.foldtext = ''
 
 vim.notify = require 'snacks.notifier'
+
+vim.diagnostic.config {
+    virtual_text = false,
+    underline = { severity = vim.diagnostic.severity.ERROR },
+    signs = true and {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '󰅚 ',
+            [vim.diagnostic.severity.WARN] = '󰀪 ',
+            [vim.diagnostic.severity.INFO] = '󰋽 ',
+            [vim.diagnostic.severity.HINT] = '󰌶 ',
+        },
+    } or {},
+}

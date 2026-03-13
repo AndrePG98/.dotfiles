@@ -16,6 +16,7 @@ return {
                 { path = 'which-key.nvim', words = { 'wk' } },
                 -- always loaded (no condition)
                 'nvim-treesitter',
+                'tiny-code-action',
             },
             integrations = {
                 lspconfig = true,

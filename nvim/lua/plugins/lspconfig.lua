@@ -116,19 +116,6 @@ local lspconfig = {
             end,
         })
 
-        -- See :help vim.diagnostic.Opts
-        vim.diagnostic.config {
-            underline = { severity = vim.diagnostic.severity.ERROR },
-            signs = true and {
-                text = {
-                    [vim.diagnostic.severity.ERROR] = '󰅚 ',
-                    [vim.diagnostic.severity.WARN] = '󰀪 ',
-                    [vim.diagnostic.severity.INFO] = '󰋽 ',
-                    [vim.diagnostic.severity.HINT] = '󰌶 ',
-                },
-            } or {},
-        }
-
         local capabilities = require('blink.cmp').get_lsp_capabilities()
 
         -- WARN: npm install @vue/typescript-plugin --save-dev
