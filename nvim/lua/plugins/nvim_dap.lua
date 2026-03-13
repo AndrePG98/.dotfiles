@@ -2,16 +2,18 @@ local nvim_dap = {
     'mfussenegger/nvim-dap',
     event = 'VeryLazy',
     dependencies = {
-        'rcarriga/nvim-dap-ui',
+        -- 'rcarriga/nvim-dap-ui',
         'nvim-neotest/nvim-nio',
         'theHamsta/nvim-dap-virtual-text',
         'jay-babu/mason-nvim-dap.nvim',
         'leoluz/nvim-dap-go',
+        'igorlfs/nvim-dap-view',
     },
     config = function()
         local mason_dap = require 'mason-nvim-dap'
         local dap = require 'dap'
-        local ui = require 'dapui'
+        -- local ui = require 'dapui'
+        local dap_view = require 'dap-view'
         local dap_virtual_text = require 'nvim-dap-virtual-text'
         local dap_go = require 'dap-go'
 
@@ -91,6 +93,15 @@ local nvim_dap = {
             },
         }
 
+        dap_view.setup {
+            follow_tab = true,
+            windows = {
+                terminal = {
+                    hide = { 'delve' },
+                },
+            },
+        }
+
         dap_virtual_text.setup {
             enabled = true,
             commented = true,
@@ -101,46 +112,46 @@ local nvim_dap = {
             enabled_commands = true,
         }
 
-        ui.setup {
-            layouts = {
-                {
-                    elements = {
-                        { id = 'scopes', size = 0.65 },
-                        { id = 'watches', size = 0.35 },
-                    },
-                    size = 45,
-                    position = 'left',
-                },
-                {
-                    elements = {
-                        { id = 'console', size = 1.0 },
-                    },
-                    size = 12,
-                    position = 'bottom',
-                },
-            },
-            floating = {
-                max_height = 0.6,
-                max_width = 0.5,
-                border = 'rounded',
-                mappings = {
-                    close = { 'q', '<Esc>' },
-                },
-            },
-        }
+        -- ui.setup {
+        --     layouts = {
+        --         {
+        --             elements = {
+        --                 { id = 'scopes', size = 0.65 },
+        --                 { id = 'watches', size = 0.35 },
+        --             },
+        --             size = 45,
+        --             position = 'left',
+        --         },
+        --         {
+        --             elements = {
+        --                 { id = 'console', size = 1.0 },
+        --             },
+        --             size = 12,
+        --             position = 'bottom',
+        --         },
+        --     },
+        --     floating = {
+        --         max_height = 0.6,
+        --         max_width = 0.5,
+        --         border = 'rounded',
+        --         mappings = {
+        --             close = { 'q', '<Esc>' },
+        --         },
+        --     },
+        -- }
 
-        dap.listeners.before.attach.dapui_config = function()
-            ui.open()
-        end
-        dap.listeners.before.launch.dapui_config = function()
-            ui.open()
-        end
-        dap.listeners.before.event_terminated.dapui_config = function()
-            ui.close()
-        end
-        dap.listeners.before.event_exited.dapui_config = function()
-            ui.close()
-        end
+        -- dap.listeners.before.attach.dapui_config = function()
+        --     ui.open()
+        -- end
+        -- dap.listeners.before.launch.dapui_config = function()
+        --     ui.open()
+        -- end
+        -- dap.listeners.before.event_terminated.dapui_config = function()
+        --     ui.close()
+        -- end
+        -- dap.listeners.before.event_exited.dapui_config = function()
+        --     ui.close()
+        -- end
     end,
     keys = {
         { '<leader>d', group = 'Debugger' },
@@ -155,6 +166,7 @@ local nvim_dap = {
             '<leader>dc',
             function()
                 require('dap').continue()
+                require('dap-view').open()
             end,
             desc = 'Continue',
         },
@@ -179,20 +191,20 @@ local nvim_dap = {
             end,
             desc = 'Step Out',
         },
-        {
-            '<leader>dr',
-            function()
-                require('dap').repl.toggle()
-            end,
-            desc = 'Open REPL',
-        },
-        {
-            '<leader>dl',
-            function()
-                require('dap').run_last()
-            end,
-            desc = 'Run Last',
-        },
+        -- {
+        --     '<leader>dr',
+        --     function()
+        --         require('dap').repl.toggle()
+        --     end,
+        --     desc = 'Open REPL',
+        -- },
+        -- {
+        --     '<leader>dl',
+        --     function()
+        --         require('dap').run_last()
+        --     end,
+        --     desc = 'Run Last',
+        -- },
         {
             '<leader>dB',
             function()
@@ -206,7 +218,7 @@ local nvim_dap = {
         {
             '<leader>dt',
             function()
-                require('dapui').toggle()
+                require('dap-view').toggle()
             end,
             desc = 'Toggle DAP UI',
         },
@@ -218,19 +230,18 @@ local nvim_dap = {
             desc = 'Evaluate Expression',
             mode = { 'n', 'v' },
         },
-        {
-            '<leader>df',
-            function()
-                require('dapui').float_element()
-            end,
-            desc = 'Float Element',
-        },
-
+        -- {
+        --     '<leader>df',
+        --     function()
+        --         require('dapui').float_element()
+        --     end,
+        --     desc = 'Float Element',
+        -- },
         {
             '<leader>dq',
             function()
                 require('dap').terminate()
-                require('dapui').close()
+                require('dap-view').close()
             end,
             desc = 'Terminate',
         },
@@ -241,6 +252,13 @@ local nvim_dap = {
                 vim.notify('All breakpoints cleared', vim.log.levels.INFO)
             end,
             desc = 'Clear All Breakpoints',
+        },
+        {
+            '<leader>da',
+            function()
+                require('dap-view').add_expr()
+            end,
+            desc = 'Add expression',
         },
     },
 }
