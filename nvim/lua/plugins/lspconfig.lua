@@ -197,6 +197,11 @@ local lspconfig = {
                         require('omnisharp_extended').lsp_definition(),
                         '[G]oto [D]efinition',
                     },
+                    {
+                        'grr',
+                        require('omnisharp_extended').lsp_references(),
+                        '[G]oto [R]eferences',
+                    },
                 },
             },
             --@type vim.lsp.config
@@ -246,7 +251,6 @@ local lspconfig = {
                     },
                 },
             },
-            sqls = {},
             svelte = {},
             vue_ls = {},
             vtsls = {},
