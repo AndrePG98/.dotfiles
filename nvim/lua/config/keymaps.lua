@@ -12,7 +12,7 @@ map('n', '<C-a>', 'ggVG', { desc = 'Select All' })
 map('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true, desc = 'Next buffer' })
 map('n', '<S-Tab>', ':bprevious<CR>', { noremap = true, silent = true, desc = 'Previous buffer' })
 map('n', '<leader>Q', ':wqa<CR>', { desc = 'Quit editor', noremap = true, silent = true })
-map('n', '<leader>w', ':w<CR>', { desc = 'Save buffer', noremap = true, silent = true })
+map('n', '<leader>w', ':w<CR>', { desc = '[W]rite buffer', noremap = true, silent = true })
 
 map({ 'n', 'x' }, 'grA', function()
     require('tiny-code-action').code_action {}

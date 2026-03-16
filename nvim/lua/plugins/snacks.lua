@@ -1,4 +1,4 @@
-return {
+local snacks = {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
@@ -11,10 +11,18 @@ return {
         dashboard = {
             preset = {
                 keys = {
-                    { icon = ' ', key = 'r', desc = 'Restore Session', section = 'session' },
+                    -- { icon = ' ', key = 'r', desc = 'Restore Session', section = 'session' },
                     -- { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
                     -- { icon = ' ', key = 'c', desc = 'Change theme', action = ':Telescope colorscheme' },
-                    { icon = ' ', key = 's', desc = 'Config', action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+                    {
+                        icon = ' ',
+                        key = 'c',
+                        desc = 'Config',
+                        action = function()
+                            vim.fn.chdir(vim.fn.stdpath 'config')
+                            require('neo-tree.command').execute { reveal = true, dir = vim.fn.stdpath 'config' }
+                        end,
+                    },
                     { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
                     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
                 },
@@ -61,17 +69,17 @@ return {
             function()
                 Snacks.lazygit()
             end,
-            desc = '[T]oggle [G]it',
+            desc = '[T]oggle Lazy[G]it',
         },
         {
             '<leader>td',
             function()
                 Snacks.terminal.toggle('lazydocker', { win = { style = 'terminal' } })
             end,
-            desc = '[T]oggle [D]ocker',
+            desc = '[T]oggle Lazy[D]ocker',
         },
         {
-            '<leader>tF',
+            '<leader>tz',
             function()
                 if vim.g.snacks_dim then
                     Snacks.dim.disable()
@@ -81,7 +89,7 @@ return {
                     vim.g.snacks_dim = true
                 end
             end,
-            desc = '[T]oggle [F]ocus',
+            desc = '[T]oggle [Z]one out',
         },
         {
             '<leader>tm',
@@ -96,9 +104,9 @@ return {
             desc = '[T]oggle database [M]anagement',
         },
         {
-            '<leader>tc',
+            '<leader>nn',
             function()
-                Snacks.input({ prompt = 'Scratch name: ' }, function(name)
+                Snacks.input({ prompt = 'Note name: ' }, function(name)
                     if name and name ~= '' then
                         Snacks.scratch.open { name = name }
                     else
@@ -106,10 +114,10 @@ return {
                     end
                 end)
             end,
-            desc = '[T]oggle s[C]ratch buffer',
+            desc = '[N]ote open/create',
         },
         {
-            '<leader>tX',
+            '<leader>nd',
             function()
                 local files = Snacks.scratch.list()
 
@@ -122,7 +130,7 @@ return {
                     return f.name .. ' [' .. f.ft .. ']'
                 end, files)
 
-                vim.ui.select(display, { prompt = 'Delete scratch file:' }, function(_, idx)
+                vim.ui.select(display, { prompt = 'Delete note file:' }, function(_, idx)
                     if not idx then
                         return
                     end
@@ -131,14 +139,14 @@ return {
                     vim.notify('Deleted: ' .. file.name, vim.log.levels.INFO)
                 end)
             end,
-            desc = 'Delete scratch file',
+            desc = '[N]ote [D]elete',
         },
         {
-            '<leader>sc',
+            '<leader>ns',
             function()
                 Snacks.scratch.select()
             end,
-            desc = '[S]earch scratch [B]uffers',
+            desc = '[N]ote [S]elect',
         },
         {
             '<leader>q',
@@ -149,3 +157,5 @@ return {
         },
     },
 }
+
+return { snacks }
