@@ -84,6 +84,18 @@ return {
             desc = '[T]oggle [F]ocus',
         },
         {
+            '<leader>tm',
+            function()
+                Snacks.terminal('sqlit', {
+                    win = {
+                        height = 0.95,
+                        width = 0.95,
+                    },
+                })
+            end,
+            desc = '[T]oggle database [M]anagement',
+        },
+        {
             '<leader>tc',
             function()
                 Snacks.input({ prompt = 'Scratch name: ' }, function(name)
