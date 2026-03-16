@@ -66,6 +66,13 @@ return {
         {
             '<leader>td',
             function()
+                Snacks.terminal.toggle('lazydocker', { win = { style = 'terminal' } })
+            end,
+            desc = '[T]oggle [D]ocker',
+        },
+        {
+            '<leader>tF',
+            function()
                 if vim.g.snacks_dim then
                     Snacks.dim.disable()
                     vim.g.snacks_dim = false
@@ -74,7 +81,7 @@ return {
                     vim.g.snacks_dim = true
                 end
             end,
-            desc = '[T]oggle [D]im',
+            desc = '[T]oggle [F]ocus',
         },
         {
             '<leader>tc',
@@ -115,7 +122,7 @@ return {
             desc = 'Delete scratch file',
         },
         {
-            '<leader>sb',
+            '<leader>sc',
             function()
                 Snacks.scratch.select()
             end,
