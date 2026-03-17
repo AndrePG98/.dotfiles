@@ -27,7 +27,52 @@ local lint = {
             -- LazyVim extension to easily override linter options
             -- or add custom linters.
             ---@type table<string,table>
-            linters = {},
+            linters = {
+                phpcs = {
+                    cmd = function()
+                        local root = vim.fn.getcwd()
+                        local candidate = root .. '/vendor/bin/phpcs'
+                        if vim.fn.executable(candidate) == 1 then
+                            return candidate
+                        end
+                        -- check one level down
+                        local dirs = vim.fn.glob(root .. '/*/vendor/bin/phpcs', false, true)
+                        if #dirs > 0 then
+                            return dirs[1]
+                        end
+                        return 'phpcs'
+                    end,
+                },
+                phpstan = {
+                    -- condition = function()
+                    --     local root = vim.fn.getcwd()
+                    --     local candidate = root .. '/vendor/bin/phpstan'
+                    --     if vim.fn.executable(candidate) == 1 then
+                    --         return true
+                    --     end
+                    --     -- check one level down
+                    --     local dirs = vim.fn.glob(root .. '/*/vendor/bin/phpstan', false, true)
+                    --     if #dirs > 0 then
+                    --         return true
+                    --     end
+                    --     return false
+                    -- end,
+                    cmd = function()
+                        local root = vim.fn.getcwd()
+                        local candidate = root .. '/vendor/bin/phpstan'
+                        if vim.fn.executable(candidate) == 1 then
+                            return candidate
+                        end
+                        -- check one level down
+                        local dirs = vim.fn.glob(root .. '/*/vendor/bin/phpstan', false, true)
+                        if #dirs > 0 then
+                            return dirs[1]
+                        end
+                        return vim.fn.stdpath 'data' .. '/mason/bin/phpstan'
+                    end,
+                },
+            },
+        },
         config = function(_, opts)
             local M = {}
 
