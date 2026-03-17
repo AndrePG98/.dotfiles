@@ -10,7 +10,7 @@ local lint = {
             linters_by_ft = {
                 fish = { 'fish' },
                 markdown = { 'vale' },
-                php = { 'phpcs' },
+                php = { 'phpcs', 'phpstan' },
                 go = { 'golangcilint' },
                 typescript = { 'eslint_d' },
                 javascript = { 'eslint_d' },
@@ -34,15 +34,8 @@ local lint = {
                         '--report=json',
                         '-',
                     },
+                    timeout = 5000,
                 },
-                -- -- Example of using selene only when a selene.toml file is present
-                -- selene = {
-                --   -- `condition` is another LazyVim extension that allows you to
-                --   -- dynamically enable/disable linters based on the context.
-                --   condition = function(ctx)
-                --     return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
-                --   end,
-                -- },
             },
         },
         config = function(_, opts)
@@ -107,7 +100,7 @@ local lint = {
 
             vim.api.nvim_create_autocmd(opts.events, {
                 group = vim.api.nvim_create_augroup('nvim-lint', { clear = true }),
-                callback = M.debounce(100, M.lint),
+                callback = M.debounce(500, M.lint),
             })
         end,
     },
