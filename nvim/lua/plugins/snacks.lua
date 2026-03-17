@@ -67,16 +67,34 @@ local snacks = {
         {
             '<leader>tg',
             function()
-                Snacks.lazygit()
+                Snacks.lazygit {}
             end,
             desc = '[T]oggle Lazy[G]it',
         },
         {
             '<leader>td',
             function()
-                Snacks.terminal.toggle('lazydocker', { win = { style = 'terminal' } })
+                Snacks.terminal.toggle('lazydocker', {
+                    win = {
+                        style = 'terminal',
+                        width = 0.95,
+                        height = 0.95,
+                    },
+                })
             end,
             desc = '[T]oggle Lazy[D]ocker',
+        },
+        {
+            '<leader>tm',
+            function()
+                Snacks.terminal('sqlit', {
+                    win = {
+                        height = 0.95,
+                        width = 0.95,
+                    },
+                })
+            end,
+            desc = '[T]oggle database [M]anagement',
         },
         {
             '<leader>tz',
@@ -90,18 +108,6 @@ local snacks = {
                 end
             end,
             desc = '[T]oggle [Z]one out',
-        },
-        {
-            '<leader>tm',
-            function()
-                Snacks.terminal('sqlit', {
-                    win = {
-                        height = 0.95,
-                        width = 0.95,
-                    },
-                })
-            end,
-            desc = '[T]oggle database [M]anagement',
         },
         {
             '<leader>nn',
