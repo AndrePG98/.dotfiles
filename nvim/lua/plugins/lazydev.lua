@@ -17,6 +17,7 @@ return {
                 -- always loaded (no condition)
                 'nvim-treesitter',
                 'tiny-code-action',
+                'telescope',
             },
             integrations = {
                 lspconfig = true,

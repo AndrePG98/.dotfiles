@@ -54,6 +54,7 @@ local snacks = {
         scratch = {},
         input = {},
         bufdelete = {},
+        picker = {},
     },
     keys = {
         {

@@ -22,6 +22,8 @@ map({ 'n', 'x' }, 'gra', ':lua require("fastaction").code_action()<CR>', { desc 
 
 map('n', '<leader>ss', ':Navbuddy<CR>', { silent = true, desc = '[S]earch [S]copes' })
 
+map('n', '<leader>sr', ':SearchAndReplace<CR>', { silent = true, desc = '[S]earch and [R]eplace' })
+
 map('n', '<leader>st', function()
     local terminals = Snacks.terminal.list()
     if #terminals == 0 then
