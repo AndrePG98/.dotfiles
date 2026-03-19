@@ -119,6 +119,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias lzd='lazydocker'
 alias lg='lazygit'
+alias nv='nvim .'
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

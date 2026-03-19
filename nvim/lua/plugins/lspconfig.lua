@@ -44,6 +44,11 @@ local lspconfig = {
                     vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
                 end
 
+                map('<leader>f', function()
+                    vim.notify('Formatting file: ' .. event.file)
+                    require('conform').format { async = true, lsp_format = 'fallback', bufnr = event.buf }
+                end, '[F]ormat buffer')
+
                 map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
 
                 map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')

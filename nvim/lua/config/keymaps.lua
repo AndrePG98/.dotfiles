@@ -14,16 +14,6 @@ map('n', '<S-Tab>', ':bprevious<CR>', { noremap = true, silent = true, desc = 'P
 map('n', '<leader>Q', ':wqa<CR>', { desc = 'Quit editor', noremap = true, silent = true })
 map('n', '<leader>w', ':w<CR>', { desc = '[W]rite buffer', noremap = true, silent = true })
 
-local neoscroll = require 'neoscroll'
-
-map('n', '<C-d>', function()
-    neoscroll.scroll(10, { move_cursor = true, duration = 250 })
-end)
-
-map('n', '<C-u>', function()
-    neoscroll.scroll(-10, { move_cursor = true, duration = 250 })
-end)
-
 map({ 'n', 'x' }, 'grA', function()
     require('tiny-code-action').code_action {}
 end, { noremap = true, silent = true, desc = '[G]oto All Code [A]ction' })

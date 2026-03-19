@@ -25,6 +25,15 @@ local mini = { -- Collection of various small independent plugins/modules
             },
         }
         require('mini.pairs').setup()
+        require('mini.animate').setup {
+            cursor = {
+                enable = false,
+            },
+            resize = {
+                enable = true,
+                timing = require('mini.animate').gen_timing.exponential { duration = 150, unit = 'total' },
+            },
+        }
     end,
 }
 
