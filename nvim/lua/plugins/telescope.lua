@@ -57,8 +57,8 @@ local telescope = {
         pcall(require('telescope').load_extension, 'cmdline')
 
         local builtin = require 'telescope.builtin'
-        vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-        vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume last picker' })
+        vim.keymap.set('n', '<leader>sK', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+        vim.keymap.set('n', '<leader>sR', builtin.resume, { desc = '[S]earch [R]esume last picker' })
         vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files' })
         vim.keymap.set('n', '<leader>sC', builtin.colorscheme, { desc = '[S]earch [C]olorscheme' })
 
