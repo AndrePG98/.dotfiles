@@ -49,7 +49,7 @@ local conform = { -- Autoformat
                 stdin = false,
             },
             ['prettier'] = {
-                command = vim.fn.stdpath 'data' .. '/mason/bin/prettier.cmd',
+                command = vim.fn.stdpath 'data' .. '/mason/bin/prettier',
             },
         },
     },
