@@ -15,7 +15,6 @@ local telescope = {
         'jonarrien/telescope-cmdline.nvim',
     },
     config = function()
-        local telescope = require 'telescope'
         local actions = require 'telescope.actions'
         local telescopeConfig = require 'telescope.config'
 
