@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 -- Treesitter syntax highlighting
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte' },
+    pattern = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte', 'markdown' },
     callback = function()
         pcall(vim.treesitter.start)
     end,
