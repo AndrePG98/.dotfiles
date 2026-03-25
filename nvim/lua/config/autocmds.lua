@@ -27,6 +27,13 @@ vim.api.nvim_create_autocmd('FileType', {
     end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = {'php'},
+    callback = function ()
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+})
+
 vim.api.nvim_create_autocmd({ 'FileType' }, {
     pattern = { 'dap-view', 'dap-view-term', 'dap-repl' }, -- dap-repl is set by `nvim-dap`
     callback = function(args)
