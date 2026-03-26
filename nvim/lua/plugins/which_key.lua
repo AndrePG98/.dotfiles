@@ -15,7 +15,17 @@ return {
                 { '<leader>t', group = '[T]oggle' },
                 { '<leader>d', group = '[D]ebugger' },
                 { '<leader>n', group = '[N]ote' },
+                { '<leader>h', group = '[H]unk' },
                 { 'gs', group = 'Surround' },
+            },
+        },
+        keys = {
+            {
+                '<leader>?',
+                function()
+                    require('which-key').show { global = true }
+                end,
+                desc = 'Buffer Local Keymaps (which-key)',
             },
         },
     },

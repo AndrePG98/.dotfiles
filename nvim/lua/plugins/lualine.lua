@@ -1,6 +1,9 @@
 return {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = {
+        'nvim-tree/nvim-web-devicons',
+        'bwpge/lualine-pretty-path',
+    },
     opts = {
         options = {
             theme = 'iceberg_dark',
@@ -16,6 +19,10 @@ return {
                 },
             },
             lualine_y = {},
+            lualine_c = { 'pretty_path' },
+        },
+        inactive_sections = {
+            lualine_c = { 'pretty_path' },
         },
         extensions = { 'neo-tree' },
     },

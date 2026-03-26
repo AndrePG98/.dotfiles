@@ -17,6 +17,7 @@ local telescope = {
     config = function()
         local actions = require 'telescope.actions'
         local telescopeConfig = require 'telescope.config'
+        local entryMaker = require 'telescope.make_entry'
 
         local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
 
@@ -45,9 +46,39 @@ local telescope = {
             table.insert(find_command, pattern)
         end
 
+        local function entry_maker(maker)
+            return function(entry)
+                local default = maker(entry)
+                if not default then
+                    return nil
+                end
+                default.display = function(e)
+                    local path = vim.fn.fnamemodify(e.filename, ':.')
+                    return string.format('%s:%s:%s', path, e.lnum, e.col), {}
+                end
+                return default
+            end
+        end
+
         require('telescope').setup {
             defaults = {
                 layout_strategy = 'flex',
+                layout_config = {
+                    horizontal = {
+                        width = 0.9,
+                        height = 0.9,
+                        preview_width = 0.6,
+                    },
+                    vertical = {
+                        width = 0.9,
+                        height = 0.9,
+                        preview_height = 0.6,
+                        preview_width = 20,
+                    },
+                    flex = {
+                        flip_columns = 160,
+                    },
+                },
                 vimgrep_arguments = vimgrep_arguments,
                 mappings = {
                     i = {
@@ -59,6 +90,26 @@ local telescope = {
             pickers = {
                 find_files = {
                     find_command = find_command,
+                },
+                lsp_references = {
+                    entry_maker = entry_maker(entryMaker.gen_from_quickfix {}),
+                },
+                live_grep = {
+                    entry_maker = entry_maker(entryMaker.gen_from_vimgrep {}),
+                    layout_config = {
+                        horizontal = {
+                            width = 0.9,
+                            height = 0.9,
+                            preview_width = 0.55,
+                        },
+                        vertical = {
+                            width = 0.9,
+                            height = 0.9,
+                            preview_height = 0.55,
+                            preview_width = 20,
+                        },
+                    },
+                    additional_args = { '--fixed-strings' },
                 },
             },
             extensions = {
@@ -82,11 +133,6 @@ local telescope = {
             },
         }
 
-        local grep_layout = {
-            horizontal = { width = 0.9, preview_width = 0.5 },
-            vertical = { width = 0.9, preview_cutoff = 20 },
-        }
-
         pcall(require('telescope').load_extension, 'fzf')
         pcall(require('telescope').load_extension, 'ui-select')
         pcall(require('telescope').load_extension, 'themes')
@@ -97,17 +143,12 @@ local telescope = {
         vim.keymap.set('n', '<leader>sR', builtin.resume, { desc = '[S]earch [R]esume last picker' })
         vim.keymap.set('n', '<leader>sC', builtin.colorscheme, { desc = '[S]earch [C]olorscheme' })
 
-        vim.keymap.set('n', '<leader>sp', function()
-            builtin.live_grep {
-                layout_config = grep_layout,
-            }
-        end, { desc = '[S]earch by [P]roject' })
+        vim.keymap.set('n', '<leader>sp', builtin.live_grep, { desc = '[S]earch by [P]roject' })
 
         vim.keymap.set('n', '<leader>sd', function()
             local function grep_in_dir(dir)
                 require('telescope.builtin').live_grep {
                     search_dirs = { dir },
-                    layout_config = grep_layout,
                 }
             end
 
@@ -133,18 +174,13 @@ local telescope = {
             end
         end, { desc = '[S]earch in [D]irectory' })
 
-        vim.keymap.set('n', '<leader>sH', function()
-            builtin.help_tags {
-                layout_config = grep_layout,
-            }
-        end, { desc = '[S]earch [H]elp' })
+        vim.keymap.set('n', '<leader>sH', builtin.help_tags, { desc = '[S]earch [H]elp' })
 
         vim.keymap.set('n', '<leader>sP', function()
             vim.ui.input({ prompt = 'File pattern (e.g. *.lua): ' }, function(pattern)
                 if pattern then
                     builtin.live_grep {
                         glob_pattern = pattern,
-                        layout_config = grep_layout,
                     }
                 end
             end)
@@ -165,19 +201,14 @@ local telescope = {
         end, { desc = '[S]earch Recent Files' })
 
         vim.keymap.set('n', '<leader><leader>', function()
-            builtin.current_buffer_fuzzy_find()
+            builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+                previewer = false,
+                layout_config = {
+                    width = 0.75,
+                    height = 0.75,
+                },
+            })
         end, { desc = '[/] Fuzzily search in current buffer' })
-
-        -- vim.keymap.set('n', '<leader>/', function()
-        --     builtin.live_grep {
-        --         grep_open_files = true,
-        --         prompt_title = 'Live Grep in Open Files',
-        --     }
-        -- end, { desc = '[S]earch [/] in Open Files' })
-        --
-        -- vim.keymap.set('n', '<leader>sn', function()
-        --     builtin.find_files { cwd = vim.fn.stdpath 'config' }
-        -- end, { desc = '[S]earch [N]eovim files' })
     end,
 }
 
