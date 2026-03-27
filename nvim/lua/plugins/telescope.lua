@@ -73,7 +73,6 @@ local telescope = {
                         width = 0.9,
                         height = 0.9,
                         preview_height = 0.6,
-                        preview_width = 20,
                     },
                     flex = {
                         flip_columns = 160,
@@ -88,6 +87,10 @@ local telescope = {
                 },
             },
             pickers = {
+                colorscheme = {
+                    enable_preview = true,
+                    previewer = false,
+                },
                 find_files = {
                     find_command = find_command,
                 },
