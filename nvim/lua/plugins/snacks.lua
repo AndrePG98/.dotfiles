@@ -4,16 +4,9 @@ local snacks = {
     lazy = false,
     ---@type snacks.Config
     opts = {
-        ---@class snacks.dashboard.Config
-        ---@field enabled? boolean
-        ---@field sections snacks.dashboard.Section
-        ---@field formats table<string, snacks.dashboard.Text|fun(item:snacks.dashboard.Item, ctx:snacks.dashboard.Format.ctx):snacks.dashboard.Text>
         dashboard = {
             preset = {
                 keys = {
-                    -- { icon = ' ', key = 'r', desc = 'Restore Session', section = 'session' },
-                    -- { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
-                    -- { icon = ' ', key = 'c', desc = 'Change theme', action = ':Telescope colorscheme' },
                     {
                         icon = ' ',
                         key = 'c',
@@ -57,6 +50,89 @@ local snacks = {
         picker = {},
     },
     keys = {
+        {
+            '<leader><leader>',
+            function()
+                Snacks.picker.lines()
+            end,
+            desc = '[/] Fuzzily search in current buffer',
+        },
+        {
+            '<leader>sw',
+            function()
+                Snacks.picker.grep_word()
+            end,
+            desc = '[S]earch [W]ord',
+        },
+        {
+            '<leader>sK',
+            function()
+                Snacks.picker.keymaps()
+            end,
+            desc = '[S]earch [K]eymaps',
+        },
+        {
+            '<leader>sH',
+            function()
+                Snacks.picker.help()
+            end,
+            desc = '[S]earch [H]elp',
+        },
+        {
+            '<leader>sR',
+            function()
+                Snacks.picker.resume()
+            end,
+            desc = '[S]earch [R]esume',
+        },
+        {
+            '<Leader>sC',
+            function()
+                Snacks.picker.colorschemes()
+            end,
+            desc = '[S]earch [C]olorschmes',
+        },
+        {
+            '<Leader>sp',
+            function()
+                Snacks.picker.grep()
+            end,
+            desc = '[S]earch [P]roject',
+        },
+        {
+            '<Leader>sd',
+            function()
+                if vim.bo.filetype == 'neo-tree' then
+                    local state = require('neo-tree.sources.manager').get_state 'filesystem'
+                    local node = state.tree:get_node()
+                    local path = node.path
+
+                    if node.type == 'file' then
+                        path = vim.fn.fnamemodify(path, ':h')
+                    end
+
+                    Snacks.picker.grep { dirs = { path } }
+                else
+                    vim.ui.input({ prompt = 'Grep in directory: ', default = './', completion = 'dir' }, function(dir)
+                        if dir then
+                            Snacks.picker.grep { dirs = { dir } }
+                        end
+                    end)
+                end
+            end,
+            desc = '[S]earch [D]irectory',
+        },
+        {
+            '<leader>sf',
+            function()
+                Snacks.picker.smart {
+                    layout = {
+                        preset = 'select',
+                    },
+                }
+            end,
+            desc = '[S]earch [F]iles',
+        },
         {
             '<C-\\>',
             function()

@@ -24,47 +24,6 @@ map('n', '<leader>ss', ':Navbuddy<CR>', { silent = true, desc = '[S]earch [S]cop
 
 map('n', '<leader>sr', ':SearchAndReplace<CR>', { silent = true, desc = '[S]earch and [R]eplace' })
 
-map('n', '<leader>st', function()
-    local terminals = Snacks.terminal.list()
-    if #terminals == 0 then
-        vim.notify('No terminals open', vim.log.levels.WARN)
-        return
-    end
-
-    local pickers = require 'telescope.pickers'
-    local finders = require 'telescope.finders'
-    local conf = require('telescope.config').values
-    local actions = require 'telescope.actions'
-    local action_state = require 'telescope.actions.state'
-
-    pickers
-        .new(require('telescope.themes').get_dropdown { previewer = false }, {
-            prompt_title = 'Terminals',
-            finder = finders.new_table {
-                results = terminals,
-                entry_maker = function(term)
-                    local title = vim.b[term.buf] and vim.b[term.buf].term_title or 'Terminal'
-                    local id = term.opts and term.opts.count or term.id or '?'
-                    return {
-                        value = term,
-                        display = string.format('%s: %s', id, title),
-                        ordinal = title,
-                    }
-                end,
-            },
-            sorter = conf.generic_sorter {},
-            attach_mappings = function(prompt_bufnr)
-                actions.select_default:replace(function()
-                    actions.close(prompt_bufnr)
-                    local term = action_state.get_selected_entry().value
-                    term:show()
-                end)
-                return true
-            end,
-        })
-        :find()
-end, { desc = '[S]earch [T]erminals' })
-
 map({ 'x', 'o' }, 'am', function()
     require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')
 end)

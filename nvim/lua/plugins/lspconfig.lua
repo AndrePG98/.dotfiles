@@ -47,21 +47,23 @@ local lspconfig = {
 
                 map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
 
-                map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+                map('grr', Snacks.picker.lsp_references, '[G]oto [R]eferences')
 
-                map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+                -- map('gri', Snacks.picker.lsp_implementations, '[G]oto [I]mplementation')
 
-                map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+                map('grd', Snacks.picker.lsp_definitions, '[G]oto [D]efinition')
 
                 -- WARN: This is not Goto Definition, this is Goto Declaration.
                 --  For example, in C this would take you to the header.
                 map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-                -- map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+                map('gri', Snacks.picker.lsp_incoming_calls, '[G]oto [I]ncoming calls')
 
-                -- map('gW', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
+                map('gro', Snacks.picker.lsp_outgoing_calls, '[G]oto [O]utgoing calls')
 
-                map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+                map('grs', Snacks.picker.lsp_symbols, '[G]oto [S]ymbols')
+
+                map('grt', Snacks.picker.lsp_type_definitions, '[G]oto [T]ype Definition')
 
                 local function client_supports_method(client, method, bufnr)
                     return client:supports_method(method, bufnr)

@@ -14,10 +14,6 @@ local lazydev = {
             { path = 'nvim-dap', words = { 'dap' } },
             { path = 'which-key.nvim', words = { 'wk' } },
             -- always loaded (no condition)
-            'nvim-treesitter',
-            'tiny-code-action',
-            'telescope',
-            'trouble',
         },
         integrations = {
             lspconfig = true,

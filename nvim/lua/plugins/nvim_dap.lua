@@ -209,9 +209,7 @@ local nvim_dap = {
             '<leader>dB',
             function()
                 require('dap').list_breakpoints()
-                require('telescope.builtin').quickfix(require('telescope.themes').get_dropdown {
-                    previewer = false,
-                })
+                Snacks.picker.qflist()
             end,
             desc = 'List Breakpoints',
         },
