@@ -2,11 +2,7 @@ local lspconfig = {
     'neovim/nvim-lspconfig',
     dependencies = {
         { 'mason-org/mason.nvim', opts = {} },
-        'mason-org/mason-lspconfig.nvim',
-        'WhoIsSethDaniel/mason-tool-installer.nvim',
-
         { 'j-hui/fidget.nvim', opts = {} },
-
         'saghen/blink.cmp',
         {
             'SmiteshP/nvim-navbuddy',
@@ -67,17 +63,8 @@ local lspconfig = {
 
                 map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
-                -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-                ---@param client vim.lsp.Client
-                ---@param method vim.lsp.protocol.Method
-                ---@param bufnr? integer some lsp support methods only in specific files
-                ---@return boolean
                 local function client_supports_method(client, method, bufnr)
-                    if vim.fn.has 'nvim-0.11' == 1 then
-                        return client:supports_method(method, bufnr)
-                    else
-                        return client.supports_method(method, { bufnr = bufnr })
-                    end
+                    return client:supports_method(method, bufnr)
                 end
 
                 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
@@ -120,180 +107,6 @@ local lspconfig = {
                 end
             end,
         })
-
-        local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-        -- WARN: npm install @vue/typescript-plugin --save-dev
-        local vue_plugin = {
-            name = '@vue/typescript-plugin',
-            location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
-            languages = { 'vue' },
-            configNamespace = 'typescript',
-        }
-
-        local svelte_plugin = {
-            name = '@typescript-svelte-plugin',
-            location = vim.fn.stdpath 'data' .. '/mason/packages/svelte-language-server/node_modules/@sveltejs/ts-plugin',
-            languages = { 'svelte' },
-        }
-
-        vim.lsp.config('vtsls', {
-            filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-            handlers = {
-                ['textDocument/documentHighlight'] = function() end,
-            },
-            settings = {
-                vtsls = {
-                    tsserver = {
-                        globalPlugins = { vue_plugin, svelte_plugin },
-                    },
-                },
-                typescript = {
-                    inlayHints = {
-                        parameterNames = { enabled = 'literals' },
-                        parameterTypes = { enabled = true },
-                        variableTypes = { enabled = true },
-                        propertyDeclarationTypes = { enabled = true },
-                        functionLikeReturnTypes = { enabled = true },
-                        enumMemberValues = { enabled = true },
-                    },
-                },
-            },
-        })
-
-        local css_capabilities = vim.tbl_deep_extend(
-            'force',
-            require('blink.cmp').get_lsp_capabilities(),
-            { textDocument = { completion = { completionItem = { snippetSupport = true } } } }
-        )
-
-        vim.lsp.config('cssls', {
-            capabilities = css_capabilities,
-        })
-
-        vim.lsp.config('lua_ls', {
-            settings = {
-                Lua = {
-                    runtime = {
-                        version = 'LuaJIT',
-                        pathStrict = false, -- This is where magic happens
-                    },
-                    workspace = {
-                        checkThirdParty = false,
-                        ignoreDir = {},
-                    },
-                    telemetry = {
-                        enable = false,
-                    },
-                    completion = { callSnippet = 'Disable' },
-                    hint = { enable = true },
-                },
-            },
-        })
-
-        vim.lsp.config('intelephense', {
-            settings = {
-                intelephense = {
-                    telemetry = {
-                        enabled = false,
-                    },
-                },
-            },
-        })
-
-        local servers = {
-            omnisharp = {
-                enable_roslyn_analyzers = true,
-                organize_imports_on_format = true,
-                enable_import_completion = true,
-                keys = {
-                    {
-                        'grd',
-                        require('omnisharp_extended').lsp_definition(),
-                        '[G]oto [D]efinition',
-                    },
-                    {
-                        'grr',
-                        require('omnisharp_extended').lsp_references(),
-                        '[G]oto [R]eferences',
-                    },
-                },
-            },
-            --@type vim.lsp.config
-            gopls = {
-                settings = {
-                    gopls = {
-                        semanticTokens = true,
-                        analyses = {
-                            nilness = true,
-                            unusedparams = true,
-                            unusedwrite = true,
-                            useany = true,
-                        },
-                        usePlaceholders = true,
-                        completeUnimported = true,
-                        directoryFilters = { '-.git', '-.vscode', '-.idea', '-node_modules', '-vendor' },
-                        staticcheck = true,
-                        gofumpt = true,
-                        codelenses = {
-                            gc_details = false,
-                            generate = true,
-                            regenerate_cgo = true,
-                            run_govulncheck = true,
-                            test = true,
-                            tidy = true,
-                            upgrade_dependency = true,
-                            vendor = true,
-                        },
-                        hints = {
-                            assignVariableTypes = true,
-                            compositeLiteralFields = true,
-                            compositeLiteralTypes = true,
-                            constantValues = true,
-                            functionTypeParameters = true,
-                            parameterNames = true,
-                            rangeVariableTypes = true,
-                        },
-                    },
-                },
-            },
-            svelte = {},
-            vue_ls = {},
-            vtsls = {},
-            rust_analyzer = {},
-            tailwindcss = {},
-            jsonls = {
-                filetypes = { 'json', 'jsonc', 'json5' },
-                before_init = function(_, new_config)
-                    new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-                    vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
-                end,
-                settings = {
-                    jsonls = {
-                        validate = { enabled = true },
-                        format = { enabled = true },
-                    },
-                },
-            },
-        }
-
-        local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, {
-            'stylua', -- Used to format Lua code
-            'gofumpt',
-        })
-        require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-        require('mason-lspconfig').setup {
-            ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-            automatic_installation = false,
-            handlers = {
-                function(server_name)
-                    local server = servers[server_name] or {}
-                    server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-                    require('lspconfig')[server_name].setup(server)
-                end,
-            },
-        }
     end,
 }
 
