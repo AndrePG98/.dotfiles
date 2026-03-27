@@ -191,6 +191,16 @@ local lspconfig = {
             },
         })
 
+        vim.lsp.config('intelephense', {
+            settings = {
+                intelephense = {
+                    telemetry = {
+                        enabled = false,
+                    },
+                },
+            },
+        })
+
         local servers = {
             omnisharp = {
                 enable_roslyn_analyzers = true,
@@ -210,15 +220,6 @@ local lspconfig = {
                 },
             },
             --@type vim.lsp.config
-            intelephense = {
-                settings = {
-                    intelephense = {
-                        telemetry = {
-                            enabled = false,
-                        },
-                    },
-                },
-            },
             gopls = {
                 settings = {
                     gopls = {
