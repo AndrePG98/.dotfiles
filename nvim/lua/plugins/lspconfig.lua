@@ -1,25 +1,29 @@
 local lspconfig = {
     'neovim/nvim-lspconfig',
     dependencies = {
-        { 'mason-org/mason.nvim', opts = {} },
-        { 'j-hui/fidget.nvim', opts = {} },
-        'saghen/blink.cmp',
         {
-            'hasansujon786/nvim-navbuddy',
-            dependencies = {
-                'SmiteshP/nvim-navic',
-                'MunifTanjim/nui.nvim',
-            },
+            'mason-org/mason.nvim',
             opts = {
-                window = {
-                    size = '75%',
+                registries = {
+                    'github:mason-org/mason-registry',
+                    'github:Crashdummyy/mason-registry',
                 },
             },
         },
+        { 'j-hui/fidget.nvim', opts = {} },
+        'saghen/blink.cmp',
         {
             'b0o/schemastore.nvim',
             lazy = true,
             version = false,
+        },
+        {
+            'seblyng/roslyn.nvim',
+            ---@module 'roslyn.config'
+            ---@type RoslynNvimConfig
+            opts = {
+                -- your configuration comes here; leave empty for default settings
+            },
         },
     },
     config = function()
@@ -94,11 +98,6 @@ local lspconfig = {
                     map('<leader>tH', function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
                     end, '[T]oggle Inlay [H]ints')
-                end
-
-                if client.server_capabilities.documentSymbolProvider then
-                    require('nvim-navbuddy').attach(client, event.buf)
-                    require('nvim-navic').attach(client, event.buf)
                 end
             end,
         })

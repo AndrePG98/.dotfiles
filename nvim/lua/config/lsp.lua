@@ -89,23 +89,6 @@ local servers = {
             },
         },
     },
-    omnisharp = {
-        enable_roslyn_analyzers = true,
-        organize_imports_on_format = true,
-        enable_import_completion = true,
-        keys = {
-            {
-                'grd',
-                require('omnisharp_extended').lsp_definition(),
-                '[G]oto [D]efinition',
-            },
-            {
-                'grr',
-                require('omnisharp_extended').lsp_references(),
-                '[G]oto [R]eferences',
-            },
-        },
-    },
     gopls = {
         settings = {
             gopls = {
@@ -143,6 +126,7 @@ local servers = {
             },
         },
     },
+    roslyn = {},
 }
 
 for name, opts in pairs(servers) do
