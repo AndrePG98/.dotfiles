@@ -28,6 +28,10 @@ local blink = { -- Autocompletion
         },
         'folke/lazydev.nvim',
         'onsails/lspkind.nvim',
+        {
+            'mikavilpas/blink-ripgrep.nvim',
+            version = '*', -- use the latest stable version
+        },
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -137,9 +141,16 @@ local blink = { -- Autocompletion
         },
 
         sources = {
-            default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer' },
+            default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'ripgrep' },
             providers = {
                 lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink', score_offset = 100 },
+                ripgrep = {
+                    module = 'blink-ripgrep',
+                    name = 'Ripgrep',
+                    ---@module "blink-ripgrep"
+                    ---@type blink-ripgrep.Options
+                    opts = {},
+                },
             },
         },
 
