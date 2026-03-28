@@ -1,4 +1,4 @@
-return {
+local lualine = {
     'nvim-lualine/lualine.nvim',
     dependencies = {
         'nvim-tree/nvim-web-devicons',
@@ -27,3 +27,5 @@ return {
         extensions = { 'neo-tree' },
     },
 }
+
+return { lualine }

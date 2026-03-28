@@ -29,9 +29,9 @@ local gitsigns = {
                 end, { desc = 'Jump to previous git [c]hange' })
 
                 -- Toggles
-                map('n', '<leader>hb', gitsigns.toggle_current_line_blame, { desc = '[H]unk git show [B]lame' })
-                map('n', '<leader>hs', gitsigns.preview_hunk, { desc = '[H]unk git [S]how' })
-                map('n', '<leader>hd', gitsigns.diffthis, { desc = '[H]unk git [D]iff' })
+                map('n', '<leader>gb', gitsigns.toggle_current_line_blame, { desc = '[G]it show [B]lame' })
+                map('n', '<leader>gs', gitsigns.preview_hunk, { desc = '[G]it [S]how' })
+                map('n', '<leader>gd', gitsigns.diffthis, { desc = '[G]it [D]iff' })
             end,
         },
     },

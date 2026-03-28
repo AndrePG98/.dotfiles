@@ -47,7 +47,15 @@ local snacks = {
         scratch = {},
         input = {},
         bufdelete = {},
-        picker = {},
+        picker = {
+            sources = {
+                lsp_symbols = {
+                    filter = {
+                        default = true,
+                    },
+                },
+            },
+        },
     },
     keys = {
         {
@@ -88,9 +96,30 @@ local snacks = {
         {
             '<Leader>sC',
             function()
-                Snacks.picker.colorschemes()
+                local original = vim.g.colors_name
+                Snacks.picker.colorschemes {
+                    layout = { preset = 'vscode' },
+                    on_change = function(picker, item)
+                        if item then
+                            vim.cmd('colorscheme ' .. item.text)
+                        end
+                    end,
+                    confirm = function(picker, item)
+                        picker:close()
+                        if item then
+                            vim.cmd('colorscheme ' .. item.text)
+                        else
+                            vim.cmd('colorscheme ' .. original)
+                        end
+                    end,
+                    on_close = function(picker)
+                        if not picker.closed then
+                            vim.cmd('colorscheme ' .. original)
+                        end
+                    end,
+                }
             end,
-            desc = '[S]earch [C]olorschmes',
+            desc = '[S]earch [C]olorschemes',
         },
         {
             '<Leader>sp',
@@ -132,6 +161,13 @@ local snacks = {
                 }
             end,
             desc = '[S]earch [F]iles',
+        },
+        {
+            '<leader>sr',
+            function()
+                Snacks.picker.registers()
+            end,
+            desc = '[S]earch [R]egisters',
         },
         {
             '<C-\\>',
@@ -237,6 +273,13 @@ local snacks = {
                 Snacks.bufdelete()
             end,
             desc = '[Q]uit Current Buffer',
+        },
+        {
+            '<leader>gD',
+            function()
+                Snacks.picker.git_diff()
+            end,
+            desc = '[G]it project [D]iff',
         },
     },
 }

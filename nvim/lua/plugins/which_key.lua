@@ -15,7 +15,7 @@ return {
                 { '<leader>t', group = '[T]oggle' },
                 { '<leader>d', group = '[D]ebugger' },
                 { '<leader>n', group = '[N]ote' },
-                { '<leader>h', group = '[H]unk' },
+                { '<leader>g', group = '[G]it' },
                 { 'gs', group = 'Surround' },
             },
         },
