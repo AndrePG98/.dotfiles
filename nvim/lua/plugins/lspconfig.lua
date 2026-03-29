@@ -45,7 +45,7 @@ local lspconfig = {
 
                 map('grr', Snacks.picker.lsp_references, '[G]oto [R]eferences')
 
-                -- map('gri', Snacks.picker.lsp_implementations, '[G]oto [I]mplementation')
+                map('grI', Snacks.picker.lsp_implementations, '[G]oto [I]mplementation')
 
                 map('grd', Snacks.picker.lsp_definitions, '[G]oto [D]efinition')
 

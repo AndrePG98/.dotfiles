@@ -5,7 +5,6 @@ local inline = {
     opts = {
         preset = 'minimal',
         options = {
-            -- Uncomment to show all diagnostics without hovering
             multilines = {
                 enabled = true,
                 always_show = true,
@@ -29,7 +28,9 @@ local actions = {
         },
     },
     event = 'LspAttach',
-    opts = {},
+    opts = {
+        picker = 'snacks',
+    },
 }
 
 local fastaction = {
