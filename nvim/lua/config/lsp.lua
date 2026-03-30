@@ -127,6 +127,7 @@ local servers = {
         },
     },
     roslyn = {},
+    basedpyright = {},
 }
 
 for name, opts in pairs(servers) do
