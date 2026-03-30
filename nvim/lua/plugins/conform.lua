@@ -32,10 +32,8 @@ local conform = { -- Autoformat
             cs = { 'csharpier' },
             svelte = { 'prettier' },
             go = { 'goimports', 'gofumpt' },
-            php = { 'pint', 'php-cs-fixer', stop_after_first = true }, -- Conform can also run multiple formatters sequentially python = { "isort", "black" },
-            --
-            -- You can use 'stop_after_first' to run the first available formatter from the list
-            -- javascript = { "prettierd", "prettier", stop_after_first = true },
+            php = { 'pint', 'php-cs-fixer', stop_after_first = true },
+            python = { 'black' },
         },
         formatters = {
             ['php-cs-fixer'] = {

@@ -5,11 +5,11 @@ local inline = {
     opts = {
         preset = 'minimal',
         options = {
-            multilines = {
-                enabled = true,
-                always_show = true,
-                severity = { vim.diagnostic.severity.ERROR },
-            },
+            -- multilines = {
+            --     enabled = true,
+            --     always_show = false,
+            --     severity = { vim.diagnostic.severity.ERROR },
+            -- },
             use_icons_from_diagnostic = true,
             override_open_float = true,
         },
