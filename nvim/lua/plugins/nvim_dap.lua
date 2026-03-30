@@ -40,7 +40,6 @@ local nvim_dap = {
         vim.fn.sign_define('DapStopped', { text = '\u{f0a9}', texthl = 'DapStopped', linehl = 'DapStoppedLine' })
 
         mason_dap.setup {
-            ensure_installed = { 'delve', 'php' },
             handlers = {
                 function(config)
                     require('mason-nvim-dap').default_setup(config)
