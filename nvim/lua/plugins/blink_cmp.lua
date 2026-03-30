@@ -32,6 +32,12 @@ local blink = { -- Autocompletion
             'mikavilpas/blink-ripgrep.nvim',
             version = '*', -- use the latest stable version
         },
+        {
+            'fang2hou/blink-copilot',
+        },
+        {
+            'becknik/blink-cmp-luasnip-choice',
+        },
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -59,23 +65,13 @@ local blink = { -- Autocompletion
             --
             -- See :h blink-cmp-config-keymap for defining your own keymap
             preset = 'default',
-            -- ['<Tab>'] = {
-            --   function(cmp)
-            --     if cmp.snippet_active() then
-            --       return cmp.accept()
-            --     else
-            --       return cmp.select_and_accept()
-            --     end
-            --   end,
-            --   'snippet_forward',
-            --   'fallback',
-            -- },
             ['<TAB>'] = { 'select_next', 'fallback' },
             ['<S-TAB>'] = { 'select_prev', 'fallback' },
             ['<CR>'] = {
                 'select_and_accept',
                 'fallback',
             },
+            ['<C-c>'] = { 'show', 'show_documentation', 'hide_documentation' },
 
             -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
             --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -85,7 +81,6 @@ local blink = { -- Autocompletion
             -- Adjusts spacing to ensure icons are aligned
             nerd_font_variant = 'mono',
         },
-
         completion = {
             -- By default, you may press `<c-space>` to show the documentation.
             -- Optionally, set `auto_show = true` to show the documentation after a delay.
@@ -96,7 +91,7 @@ local blink = { -- Autocompletion
             },
             documentation = {
                 auto_show = true,
-                auto_show_delay_ms = 250,
+                auto_show_delay_ms = 150,
                 treesitter_highlighting = true,
                 window = {
                     border = 'single',
@@ -104,11 +99,12 @@ local blink = { -- Autocompletion
             },
             ghost_text = { enabled = true },
             menu = {
-                border = 'single',
+                border = 'rounded',
+                min_width = 10,
                 draw = {
                     -- We don't need label_description now because label and label_description are already
                     -- combined together in label by colorful-menu.nvim.
-                    columns = { { 'kind_icon' }, { 'label', gap = 1 } },
+                    columns = { { 'kind_icon' }, { 'label', gap = 1 }, { 'source_name' } },
                     components = {
                         label = {
                             width = { fill = true, max = 60 },
@@ -140,7 +136,7 @@ local blink = { -- Autocompletion
         },
 
         sources = {
-            default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'ripgrep' },
+            default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'ripgrep', 'copilot', 'choice' },
             providers = {
                 lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink', score_offset = 100 },
                 ripgrep = {
@@ -148,6 +144,17 @@ local blink = { -- Autocompletion
                     name = 'Ripgrep',
                     ---@module "blink-ripgrep"
                     ---@type blink-ripgrep.Options
+                    opts = {},
+                },
+                copilot = {
+                    name = 'copilot',
+                    module = 'blink-copilot',
+                    score_offset = 100,
+                    async = true,
+                },
+                choice = {
+                    name = 'LuaSnip Choice Nodes',
+                    module = 'blink-cmp-luasnip-choice',
                     opts = {},
                 },
             },

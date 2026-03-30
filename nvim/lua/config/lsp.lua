@@ -99,7 +99,7 @@ local servers = {
                     unusedwrite = true,
                     useany = true,
                 },
-                usePlaceholders = true,
+                usePlaceholders = false,
                 completeUnimported = true,
                 directoryFilters = { '-.git', '-.vscode', '-.idea', '-node_modules', '-vendor' },
                 staticcheck = true,
