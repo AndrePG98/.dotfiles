@@ -94,7 +94,7 @@ local blink = { -- Autocompletion
                 auto_show_delay_ms = 150,
                 treesitter_highlighting = true,
                 window = {
-                    border = 'single',
+                    border = 'rounded',
                 },
             },
             ghost_text = { enabled = true },
@@ -106,6 +106,13 @@ local blink = { -- Autocompletion
                     -- combined together in label by colorful-menu.nvim.
                     columns = { { 'kind_icon' }, { 'label', gap = 1 }, { 'source_name' } },
                     components = {
+                        source_name = {
+                            width = { max = 10 },
+                            text = function(ctx)
+                                return '[' .. ctx.source_name .. ']'
+                            end,
+                            highlight = 'BlinkCmpSource',
+                        },
                         label = {
                             width = { fill = true, max = 60 },
                             text = function(ctx)
