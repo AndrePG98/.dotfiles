@@ -35,5 +35,9 @@ return {
     {
         "rose-pine/neovim",
         priority = 1000,
+    },
+    {
+        "sainnhe/everforest",
+        priority = 1000,
     }
 }
