@@ -16,6 +16,7 @@ return {
                 { '<leader>d', group = '[D]ebugger' },
                 { '<leader>n', group = '[N]ote' },
                 { '<leader>g', group = '[G]it' },
+                { '<leader>a', group = '[A]i' },
                 { 'gs', group = 'Surround' },
             },
         },

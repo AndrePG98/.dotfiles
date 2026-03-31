@@ -30,7 +30,7 @@ local gitsigns = {
 
                 -- Toggles
                 map('n', '<leader>gb', gitsigns.toggle_current_line_blame, { desc = '[G]it show [B]lame' })
-                map('n', '<leader>gs', gitsigns.preview_hunk, { desc = '[G]it [S]how' })
+                map('n', '<leader>gs', gitsigns.preview_hunk, { desc = '[G]it [S]how hunk' })
                 map('n', '<leader>gd', gitsigns.diffthis, { desc = '[G]it [D]iff' })
             end,
         },
