@@ -39,3 +39,7 @@ end)
 --     require('nvim-treesitter-textobjects.select').select_textobject('@local.scope', 'locals')
 -- end)
 --
+
+map('n', '<leader>at', ':Sidekick cli toggle name=claude<CR>', { desc = '[A]i [T]oggle', silent = true })
+
+map('n', '<leader>ap', ':Sidekick cli prompt<CR>', { desc = '[A]i [T]oggle', silent = true })

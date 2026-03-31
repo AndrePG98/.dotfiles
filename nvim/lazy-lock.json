@@ -51,6 +51,7 @@
   "render-markdown.nvim": { "branch": "main", "commit": "e3c18ddd27a853f85a6f513a864cf4f2982b9f26" },
   "roslyn.nvim": { "branch": "main", "commit": "ff43201090361b8936e008a006473b59ef2c0ca6" },
   "schemastore.nvim": { "branch": "main", "commit": "4f1c58a59d3a4da095743dd6f04b73caa0cefc3d" },
+  "sidekick.nvim": { "branch": "main", "commit": "17447a05f9385e5f8372b61530f6f9329cb82421" },
   "snacks.nvim": { "branch": "main", "commit": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e" },
   "spring-boot.nvim": { "branch": "main", "commit": "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0" },
   "tiny-code-action.nvim": { "branch": "main", "commit": "8e72efa075ba3154bbc4c7d1db532b03b4e68373" },
