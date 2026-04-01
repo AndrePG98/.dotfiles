@@ -80,13 +80,43 @@ local nvim_dap = {
                     name = 'Launch CLI script',
                     port = 9003,
                     program = '${file}',
-                    cwd = '${workspaceFolder}',
+                    cwd = vim.fn.getcwd(),
                     runtimeExecutable = 'php',
                 },
             },
         }
 
         dap_go.setup {
+            dap_configurations = {
+                {
+                    type = 'go',
+                    name = 'Attach remote',
+                    mode = 'remote',
+                    request = 'attach',
+                    host = '127.0.0.1',
+                    port = 2345,
+                    substitutePath = {
+                        {
+                            from = '/app',
+                            to = function()
+                                local co = coroutine.running()
+                                Snacks.input({
+                                    prompt = 'Remote /app maps to (blank for cwd): ',
+                                    default = '',
+                                    completion = 'file',
+                                }, function(value)
+                                    coroutine.resume(co, value)
+                                end)
+                                local input = coroutine.yield()
+                                if not input or input == '' then
+                                    return vim.fn.getcwd()
+                                end
+                                return vim.fn.expand(input)
+                            end,
+                        },
+                    },
+                },
+            },
             delve = {
                 path = vim.fn.has 'win32' == 1 and vim.fn.stdpath 'data' .. '\\mason\\packages\\delve\\dlv.exe' or 'dlv',
             },
@@ -110,47 +140,6 @@ local nvim_dap = {
             highlight_new_as_changed = true,
             enabled_commands = true,
         }
-
-        -- ui.setup {
-        --     layouts = {
-        --         {
-        --             elements = {
-        --                 { id = 'scopes', size = 0.65 },
-        --                 { id = 'watches', size = 0.35 },
-        --             },
-        --             size = 45,
-        --             position = 'left',
-        --         },
-        --         {
-        --             elements = {
-        --                 { id = 'console', size = 1.0 },
-        --             },
-        --             size = 12,
-        --             position = 'bottom',
-        --         },
-        --     },
-        --     floating = {
-        --         max_height = 0.6,
-        --         max_width = 0.5,
-        --         border = 'rounded',
-        --         mappings = {
-        --             close = { 'q', '<Esc>' },
-        --         },
-        --     },
-        -- }
-
-        -- dap.listeners.before.attach.dapui_config = function()
-        --     ui.open()
-        -- end
-        -- dap.listeners.before.launch.dapui_config = function()
-        --     ui.open()
-        -- end
-        -- dap.listeners.before.event_terminated.dapui_config = function()
-        --     ui.close()
-        -- end
-        -- dap.listeners.before.event_exited.dapui_config = function()
-        --     ui.close()
-        -- end
     end,
     keys = {
         { '<leader>d', group = 'Debugger' },
@@ -190,20 +179,6 @@ local nvim_dap = {
             end,
             desc = 'Step Out',
         },
-        -- {
-        --     '<leader>dr',
-        --     function()
-        --         require('dap').repl.toggle()
-        --     end,
-        --     desc = 'Open REPL',
-        -- },
-        -- {
-        --     '<leader>dl',
-        --     function()
-        --         require('dap').run_last()
-        --     end,
-        --     desc = 'Run Last',
-        -- },
         {
             '<leader>dB',
             function()
@@ -227,13 +202,6 @@ local nvim_dap = {
             desc = 'Evaluate Expression',
             mode = { 'n', 'v' },
         },
-        -- {
-        --     '<leader>df',
-        --     function()
-        --         require('dapui').float_element()
-        --     end,
-        --     desc = 'Float Element',
-        -- },
         {
             '<leader>dq',
             function()
