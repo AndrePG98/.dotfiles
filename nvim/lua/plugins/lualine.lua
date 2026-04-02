@@ -6,7 +6,7 @@ local lualine = {
     },
     opts = {
         options = {
-            theme = 'iceberg_dark',
+            theme = 'everforest',
             component_separators = { left = '|', right = '|' },
             section_separators = { left = '', right = '' },
         },
