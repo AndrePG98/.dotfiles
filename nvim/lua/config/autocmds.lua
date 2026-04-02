@@ -25,7 +25,16 @@ local filetypes = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'java
 vim.api.nvim_create_autocmd('FileType', {
     pattern = filetypes,
     callback = function(ev)
-        vim.treesitter.start(ev.buf)
+        local ft = vim.bo[ev.buf].filetype
+
+        local ok, parser = pcall(vim.treesitter.get_parser, bufnr, ft)
+
+        if not ok then
+            vim.notify("No Tree-sitter parser for " .. ft ,vim.log.levels.WARN)
+            return
+        end
+
+        vim.treesitter.start(bufnr, ft)
         vim.wo[0][0].foldmethod = 'expr'
         vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     end,
