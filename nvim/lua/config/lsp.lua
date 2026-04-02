@@ -10,11 +10,11 @@ local vue_plugin = {
     configNamespace = 'typescript',
 }
 
-local svelte_plugin = {
-    name = '@typescript-svelte-plugin',
-    location = vim.fn.stdpath 'data' .. '/mason/packages/svelte-language-server/node_modules/@sveltejs/ts-plugin',
-    languages = { 'svelte' },
-}
+-- local svelte_plugin = {
+--     name = '@typescript-svelte-plugin',
+--     location = vim.fn.stdpath 'data' .. '/mason/packages/svelte-language-server/node_modules/@sveltejs/ts-plugin',
+--     languages = { 'svelte' },
+-- }
 
 local servers = {
     lua_ls = {
@@ -44,7 +44,8 @@ local servers = {
         settings = {
             vtsls = {
                 tsserver = {
-                    globalPlugins = { vue_plugin, svelte_plugin },
+                    -- globalPlugins = { vue_plugin, svelte_plugin },
+                    globalPlugins = { vue_plugin },
                 },
             },
             typescript = {
@@ -59,7 +60,7 @@ local servers = {
             },
         },
     },
-    svelte = {},
+    -- svelte = {},
     vue_ls = {},
     cssls = {
         capabilities = require('blink.cmp').get_lsp_capabilities {
@@ -127,6 +128,13 @@ local servers = {
     },
     roslyn = {},
     basedpyright = {},
+    jdtls = {
+        settings = {
+            java = {
+                signatureHelp = { enabled = true },
+            },
+        },
+    },
 }
 
 for name, opts in pairs(servers) do

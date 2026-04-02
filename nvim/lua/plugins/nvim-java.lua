@@ -6,4 +6,4 @@ local nvimJava = {
     end,
 }
 
-return { nvimJava }
+return {}

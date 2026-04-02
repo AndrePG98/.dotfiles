@@ -84,15 +84,15 @@ local nvim_dap = {
                     runtimeExecutable = 'php',
                 },
             },
-            -- java = {
-            --     {
-            --         type = 'java',
-            --         request = 'attach',
-            --         name = 'Remote Debug',
-            --         hostName = 'localhost',
-            --         port = 5005,
-            --     },
-            -- },
+            java = {
+                {
+                    type = 'java',
+                    request = 'attach',
+                    name = 'Remote Debug',
+                    hostName = '127.0.0.1',
+                    port = 5005,
+                },
+            },
         }
 
         dap_go.setup {
