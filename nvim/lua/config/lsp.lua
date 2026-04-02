@@ -1,3 +1,5 @@
+local mason_path = vim.fn.stdpath 'data' .. '/mason/packages'
+
 vim.lsp.config('*', {
     capabilities = require('blink.cmp').get_lsp_capabilities(),
 })
@@ -5,16 +7,29 @@ vim.lsp.config('*', {
 -- WARN: install @vue/typescript-plugin
 local vue_plugin = {
     name = '@vue/typescript-plugin',
-    location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+    location = mason_path .. '/vue-language-server/node_modules/@vue/language-server',
     languages = { 'vue' },
     configNamespace = 'typescript',
 }
 
 -- local svelte_plugin = {
 --     name = '@typescript-svelte-plugin',
---     location = vim.fn.stdpath 'data' .. '/mason/packages/svelte-language-server/node_modules/@sveltejs/ts-plugin',
+--     location = mason_path .. '/svelte-language-server/node_modules/@sveltejs/ts-plugin',
 --     languages = { 'svelte' },
 -- }
+--#region
+--
+
+local jdtls_bundles = {
+    vim.fn.glob(mason_path .. '/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar', true),
+}
+
+local excluded = { 'com.microsoft.java.test.runner-jar-with-dependencies.jar', 'jacocoagent.jar' }
+for _, jar in ipairs(vim.split(vim.fn.glob(mason_path .. '/java-test/extension/server/*.jar', true), '\n')) do
+    if jar ~= '' and not vim.tbl_contains(excluded, vim.fn.fnamemodify(jar, ':t')) then
+        table.insert(jdtls_bundles, jar)
+    end
+end
 
 local servers = {
     lua_ls = {
@@ -133,6 +148,9 @@ local servers = {
             java = {
                 signatureHelp = { enabled = true },
             },
+        },
+        init_options = {
+            bundles = jdtls_bundles,
         },
     },
 }

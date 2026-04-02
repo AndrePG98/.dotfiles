@@ -1,9 +1,10 @@
 local nvim_jdtls = {
     'mfussenegger/nvim-jdtls',
+    ft = 'java',
     dependencies = {
         'mfussenegger/nvim-dap',
     },
-    opts = {},
+
 }
 
 return { nvim_jdtls }
