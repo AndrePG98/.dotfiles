@@ -2,7 +2,7 @@ vim.lsp.config('*', {
     capabilities = require('blink.cmp').get_lsp_capabilities(),
 })
 
--- WARN: npm install @vue/typescript-plugin --save-dev
+-- WARN: install @vue/typescript-plugin
 local vue_plugin = {
     name = '@vue/typescript-plugin',
     location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
@@ -69,12 +69,11 @@ local servers = {
     tailwindcss = {},
     jsonls = {
         filetypes = { 'json', 'jsonc', 'json5' },
-        before_init = function(_, new_config)
-            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
+        before_init = function(_, config)
+            config.settings.json.schemas = require('schemastore').json.schemas()
         end,
         settings = {
-            jsonls = {
+            json = {
                 validate = { enabled = true },
                 format = { enabled = true },
             },
@@ -131,9 +130,7 @@ local servers = {
 }
 
 for name, opts in pairs(servers) do
-    if next(opts) ~= nil then
-        vim.lsp.config(name, opts)
-    end
+    vim.lsp.config(name, opts)
 end
 
 vim.lsp.enable(vim.tbl_keys(servers))

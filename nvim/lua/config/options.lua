@@ -37,22 +37,19 @@ vim.opt.fillchars = { eob = ' ' }
 vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 
 vim.opt.foldenable = true
-vim.o.foldmethod = 'expr'
 vim.o.foldlevel = 99
-vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.opt.foldtext = ''
 
 vim.notify = require 'snacks.notifier'
 
 vim.diagnostic.config {
     virtual_text = false,
     underline = { severity = vim.diagnostic.severity.ERROR },
-    signs = true and {
+    signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = '󰅚 ',
             [vim.diagnostic.severity.WARN] = '󰀪 ',
             [vim.diagnostic.severity.INFO] = '󰋽 ',
             [vim.diagnostic.severity.HINT] = '󰌶 ',
         },
-    } or {},
+    },
 }

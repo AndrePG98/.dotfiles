@@ -19,31 +19,28 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     end,
 })
 
+local filetypes = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte', 'markdown', 'vue', 'python', 'java', 'yaml', 'json' }
+
 -- Treesitter syntax highlighting
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte', 'markdown' },
-    callback = function()
-        pcall(vim.treesitter.start)
+    pattern = filetypes,
+    callback = function(ev)
+        vim.treesitter.start(ev.buf)
+        vim.wo[0][0].foldmethod = 'expr'
+        vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     end,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = {'php'},
-    callback = function ()
+    pattern = { 'php' },
+    callback = function()
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    end
+    end,
 })
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
     pattern = { 'dap-view', 'dap-view-term', 'dap-repl' }, -- dap-repl is set by `nvim-dap`
     callback = function(args)
         vim.keymap.set('n', 'q', '<C-w>q', { buffer = args.buf })
-    end,
-})
-
-vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = '*',
-    callback = function(args)
-        require('conform').format { bufnr = args.buf, async = true }
     end,
 })

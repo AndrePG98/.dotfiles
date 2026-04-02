@@ -18,7 +18,7 @@ map({ 'n', 'x' }, 'grA', function()
     require('tiny-code-action').code_action {}
 end, { noremap = true, silent = true, desc = '[G]oto All Code [A]ction' })
 
-map({ 'n', 'x' }, 'gra', ':lua require("fastaction").code_action()<CR>', { desc = '[G]oto cursor code [A]ctions', buffer = bufnr })
+map({ 'n', 'x' }, 'gra', ':lua require("fastaction").code_action()<CR>', { desc = '[G]oto cursor code [A]ctions' })
 
 map('n', '<leader>s.', ':SearchAndReplace<CR>', { silent = true, desc = '[S]earch and replace' })
 
@@ -43,3 +43,7 @@ end)
 map('n', '<leader>at', ':Sidekick cli toggle name=claude<CR>', { desc = '[A]i [T]oggle', silent = true })
 
 map('n', '<leader>ap', ':Sidekick cli prompt<CR>', { desc = '[A]i pre-built [P]rompts', silent = true })
+
+map('n', '<leader>tc', function ()
+    vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
+end, { desc = '[T]oggle [C]ode Lens' })
