@@ -145,9 +145,7 @@ local servers = {
     basedpyright = {},
     jdtls = {
         settings = {
-            java = {
-                signatureHelp = { enabled = true },
-            },
+            java = {},
         },
         init_options = {
             bundles = jdtls_bundles,
