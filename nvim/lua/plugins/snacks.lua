@@ -270,7 +270,17 @@ local snacks = {
         {
             '<leader>q',
             function()
-                Snacks.bufdelete()
+                local winAmount = #vim.api.nvim_tabpage_list_wins(0)
+                if winAmount > 1 and vim.fn.winnr() ~= 1 then
+                    vim.cmd 'q'
+                    return
+                end
+
+                if pcall(Snacks.bufdelete) then
+                    return
+                else
+                    vim.cmd 'q'
+                end
             end,
             desc = '[Q]uit Current Buffer',
         },
