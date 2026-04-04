@@ -39,8 +39,6 @@ vim.opt.listchars = { tab = '  ', trail = '·', nbsp = '␣' }
 vim.opt.foldenable = true
 vim.o.foldlevel = 99
 
-vim.notify = require 'snacks.notifier'
-
 vim.diagnostic.config {
     virtual_text = false,
     underline = { severity = vim.diagnostic.severity.ERROR },

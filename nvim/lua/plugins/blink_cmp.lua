@@ -1,6 +1,7 @@
 local blink = { -- Autocompletion
     'saghen/blink.cmp',
     event = 'VimEnter',
+    lazy = false,
     version = '1.*',
     dependencies = {
         -- Snippet Engine

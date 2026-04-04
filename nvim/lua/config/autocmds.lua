@@ -27,14 +27,14 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function(ev)
         local ft = vim.bo[ev.buf].filetype
 
-        local ok, parser = pcall(vim.treesitter.get_parser, bufnr, ft)
+        local ok, _ = pcall(vim.treesitter.get_parser, ev.buf, ft)
 
         if not ok then
             vim.notify('No Tree-sitter parser for ' .. ft, vim.log.levels.WARN)
             return
         end
 
-        vim.treesitter.start(bufnr, ft)
+        vim.treesitter.start(ev.buf, ft)
         vim.wo[0][0].foldmethod = 'expr'
         vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     end,

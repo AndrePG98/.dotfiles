@@ -2,6 +2,9 @@ local snacks = {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
+    init = function()
+        vim.notify = require 'snacks.notifier'
+    end,
     ---@type snacks.Config
     opts = {
         dashboard = {
