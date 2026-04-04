@@ -17,7 +17,7 @@ local lspconfig = {
     },
     config = function()
         vim.lsp.config('*', {
-            capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), require('blink.cmp').get_lsp_capabilities()),
+            capabilities = require('blink.cmp').get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities()),
         })
 
         vim.lsp.handlers['textDocument/signatureHelp'] = function(err, result, ctx, config)
