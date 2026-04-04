@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
 
         map('<leader>f', function()
-            vim.notify('Formatting file: ' .. event.file)
+            vim.notify('Formatting file')
             require('conform').format { async = true, lsp_format = 'fallback', bufnr = event.buf }
         end, '[F]ormat buffer')
 
