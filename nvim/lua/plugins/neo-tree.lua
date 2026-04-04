@@ -6,7 +6,7 @@ local neoTree = {
         'nvim-tree/nvim-web-devicons',
         'MunifTanjim/nui.nvim',
     },
-    lazy = false,
+    lazy = true,
     keys = {
         { '\\', ':Neotree reveal<CR>', desc = 'Toggle File Explorer', silent = true },
     },

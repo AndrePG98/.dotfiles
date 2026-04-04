@@ -1,43 +1,44 @@
 return {
     {
         'Shatur/neovim-ayu',
-        priority = 1000,
+        lazy = true,
     },
     {
         'shaunsingh/nord.nvim',
-        priority = 1000,
+        lazy = true,
     },
     {
         'AlexvZyl/nordic.nvim',
-        priority = 1000,
+        lazy = true,
     },
     {
         'folke/tokyonight.nvim',
-        priority = 1000,
+        lazy = true,
     },
     {
         'catppuccin/nvim',
         name = 'catppuccin',
-        priority = 1000,
+        lazy = true,
     },
     {
         'sainnhe/gruvbox-material',
-        priority = 1000,
+        lazy = true,
     },
     {
         'marko-cerovac/material.nvim',
-        priority = 1000,
+        lazy = true,
     },
     {
         'Mofiqul/dracula.nvim',
-        priority = 1000,
+        lazy = true,
     },
     {
-        "rose-pine/neovim",
-        priority = 1000,
+        'rose-pine/neovim',
+        lazy = true,
     },
     {
-        "sainnhe/everforest",
+        'sainnhe/everforest',
         priority = 1000,
-    }
+        lazy = false,
+    },
 }

@@ -1,6 +1,6 @@
 local copilot = {
     'zbirenbaum/copilot.lua',
-    event = 'VimEnter',
+    event = 'InsertEnter',
     opts = {
         panel = {
             enabled = false,
