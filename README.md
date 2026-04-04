@@ -7,9 +7,9 @@
 | `ripgrep` (rg) | Live grep / project search |
 | `fd` | File finder |
 | `git` | Git signs, diffs, history |
-| `lazygit` | Git TUI (`<leader>tg`) |
-| `lazydocker` | Docker TUI (`<leader>td`) |
-| `sqlit` | Database TUI (`<leader>tm`) |
+| `lazygit` | Git TUI |
+| `lazydocker` | Docker TUI |
+| `sqlit` | Database TUI |
 | `gcc` or `clang` | Compile Treesitter parsers |
 
 ## Fonts
