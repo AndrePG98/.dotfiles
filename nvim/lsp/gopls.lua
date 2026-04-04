@@ -7,6 +7,7 @@ local gopls = {
                 unusedparams = true,
                 unusedwrite = true,
                 useany = true,
+                ST1000 = false,
             },
             usePlaceholders = false,
             completeUnimported = true,
