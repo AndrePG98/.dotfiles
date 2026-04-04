@@ -57,7 +57,19 @@ local snacks = {
                         default = true,
                     },
                 },
+                explorer = {
+                    layout = {
+                        layout = {
+                            position = 'right',
+                        }
+                    },
+                },
             },
+        },
+        ---@class snacks.explorer.Config
+        explorer = {
+            replace_netrw = true,
+            trash = true,
         },
     },
     keys = {
@@ -102,7 +114,7 @@ local snacks = {
                 local original = vim.g.colors_name
                 Snacks.picker.colorschemes {
                     layout = { preset = 'vscode' },
-                    on_change = function(picker, item)
+                    on_change = function(_, item)
                         if item then
                             vim.cmd('colorscheme ' .. item.text)
                         end
@@ -293,6 +305,13 @@ local snacks = {
                 Snacks.picker.git_diff()
             end,
             desc = '[G]it project [D]iff',
+        },
+        {
+            '\\',
+            function()
+                Snacks.explorer.open()
+            end,
+            desc = 'File explorer',
         },
     },
 }

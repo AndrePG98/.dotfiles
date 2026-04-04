@@ -100,4 +100,4 @@ local nvimLspFileOperations = {
     end,
 }
 
-return { neoTree, nvimLspFileOperations }
+return {}
