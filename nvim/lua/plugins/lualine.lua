@@ -11,6 +11,9 @@ local lualine = {
             section_separators = { left = '', right = '' },
         },
         sections = {
+            lualine_c = {
+                'pretty_path',
+            },
             lualine_x = {
                 'encoding',
                 {
@@ -19,7 +22,7 @@ local lualine = {
                 },
                 {
                     function()
-                        return ' '
+                        return ''
                     end,
                     color = function()
                         local status = require('sidekick.status').get()
@@ -34,14 +37,10 @@ local lualine = {
                 },
             },
             lualine_y = {},
-            lualine_c = {
-                'pretty_path',
-            },
         },
         inactive_sections = {
             lualine_c = { 'pretty_path' },
         },
-        extensions = { 'neo-tree' },
     },
 }
 

@@ -15,6 +15,9 @@ local lazydev = {
             { path = 'which-key.nvim', words = { 'wk' } },
             -- always loaded (no condition)
         },
+        integrations = {
+            lspconfig = true,
+        },
         enabled = true,
     },
 }
