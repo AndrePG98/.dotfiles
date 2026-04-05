@@ -1,7 +1,6 @@
 local map = vim.keymap.set
 
 map('n', ';', ':', { noremap = true })
-map('v', '<esc>', ':nohlsearch<CR>')
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 map('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 map('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
@@ -13,6 +12,11 @@ map('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true, desc = 'Next bu
 map('n', '<S-Tab>', ':bprevious<CR>', { noremap = true, silent = true, desc = 'Previous buffer' })
 map('n', '<leader>Q', ':wqa<CR>', { desc = 'Quit editor', noremap = true, silent = true })
 map('n', '<leader>w', ':w<CR>', { desc = '[W]rite buffer', noremap = true, silent = true })
+
+map({ 'i', 'n', 's' }, '<esc>', function()
+    vim.cmd 'noh'
+    return '<esc>'
+end, { expr = true, desc = 'Escape and Clear hlsearch' })
 
 map({ 'n', 'x' }, 'grA', function()
     require('tiny-code-action').code_action {}
@@ -44,6 +48,11 @@ map('n', '<leader>at', ':Sidekick cli toggle name=claude<CR>', { desc = '[A]i [T
 
 map('n', '<leader>ap', ':Sidekick cli prompt<CR>', { desc = '[A]i pre-built [P]rompts', silent = true })
 
-map('n', '<leader>tc', function ()
+map('n', '<leader>tc', function()
     vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
 end, { desc = '[T]oggle [C]ode Lens' })
+
+map('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
+map('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
+map('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
+map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })

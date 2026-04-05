@@ -10,15 +10,6 @@ local snacks = {
         dashboard = {
             preset = {
                 keys = {
-                    {
-                        icon = ' ',
-                        key = 'c',
-                        desc = 'Config',
-                        action = function()
-                            vim.fn.chdir(vim.fn.stdpath 'config')
-                            require('neo-tree.command').execute { reveal = true, dir = vim.fn.stdpath 'config' }
-                        end,
-                    },
                     { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
                     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
                 },
