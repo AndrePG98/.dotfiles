@@ -10,8 +10,9 @@ local snacks = {
         dashboard = {
             preset = {
                 keys = {
-                    { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
-                    { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+                    { icon = '󰒲', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
+                    { icon = '󰏗', key = 'M', desc = 'Mason', action = ':Mason', enabled = package.loaded.lazy ~= nil },
+                    { icon = '', key = 'q', desc = 'Quit', action = ':qa' },
                 },
             },
             sections = {
@@ -52,7 +53,7 @@ local snacks = {
                     layout = {
                         layout = {
                             position = 'right',
-                        }
+                        },
                     },
                 },
             },
