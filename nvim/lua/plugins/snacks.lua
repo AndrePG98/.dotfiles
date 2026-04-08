@@ -50,6 +50,7 @@ local snacks = {
                     },
                 },
                 explorer = {
+                    hidden = true,
                     layout = {
                         layout = {
                             position = 'right',
