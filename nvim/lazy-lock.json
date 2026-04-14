@@ -33,7 +33,7 @@
   "nordic.nvim": { "branch": "main", "commit": "9f757428264ef1fcd1703e17702d3a28f307a2f7" },
   "nvim-dap": { "branch": "master", "commit": "45a69eba683a2c448dd9ecfc4de89511f0646b5f" },
   "nvim-dap-go": { "branch": "main", "commit": "b4421153ead5d726603b02743ea40cf26a51ed5f" },
-  "nvim-dap-view": { "branch": "main", "commit": "e44892210cfa98d23bf22b82b345213d742b9bee" },
+  "nvim-dap-view": { "branch": "main", "commit": "1dd4ba2307245ca9517a4b9d99f3bf80830e4397" },
   "nvim-dap-virtual-text": { "branch": "master", "commit": "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6" },
   "nvim-jdtls": { "branch": "master", "commit": "77ccaeb422f8c81b647605da5ddb4a7f725cda90" },
   "nvim-lint": { "branch": "master", "commit": "eab58b48eb11d7745c11c505e0f3057165902461" },

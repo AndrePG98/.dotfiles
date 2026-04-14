@@ -102,26 +102,12 @@ local nvim_dap = {
                     name = 'Attach remote',
                     mode = 'remote',
                     request = 'attach',
-                    host = '127.0.0.1',
+                    host = 'localhost',
                     port = 2345,
                     substitutePath = {
                         {
-                            from = '/app',
-                            to = function()
-                                local co = coroutine.running()
-                                Snacks.input({
-                                    prompt = 'Remote /app maps to (blank for cwd): ',
-                                    default = '',
-                                    completion = 'file',
-                                }, function(value)
-                                    coroutine.resume(co, value)
-                                end)
-                                local input = coroutine.yield()
-                                if not input or input == '' then
-                                    return vim.fn.getcwd()
-                                end
-                                return vim.fn.expand(input)
-                            end,
+                            to = '/app',
+                            from = '${workspaceFolder}',
                         },
                     },
                 },
@@ -130,6 +116,23 @@ local nvim_dap = {
                 path = vim.fn.has 'win32' == 1 and vim.fn.stdpath 'data' .. '\\mason\\packages\\delve\\dlv.exe' or 'dlv',
             },
         }
+
+        dap.adapters.go = function(cb, config)
+            if config.mode == 'remote' then
+                cb { type = 'server', host = config.host, port = config.port }
+            else
+                local port = '${port}'
+                cb {
+                    type = 'server',
+                    port = port,
+                    executable = {
+                        command = require('dap-go').setup_config.delve.path or 'dlv',
+                        args = { 'dap', '-l', '127.0.0.1:' .. port },
+                        detached = vim.fn.has 'win32' == 0,
+                    },
+                }
+            end
+        end
 
         dap_view.setup {
             follow_tab = true,
