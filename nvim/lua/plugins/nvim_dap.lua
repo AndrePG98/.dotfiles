@@ -120,17 +120,6 @@ local nvim_dap = {
         dap.adapters.go = function(cb, config)
             if config.mode == 'remote' then
                 cb { type = 'server', host = config.host, port = config.port }
-            else
-                local port = '${port}'
-                cb {
-                    type = 'server',
-                    port = port,
-                    executable = {
-                        command = require('dap-go').setup_config.delve.path or 'dlv',
-                        args = { 'dap', '-l', '127.0.0.1:' .. port },
-                        detached = vim.fn.has 'win32' == 0,
-                    },
-                }
             end
         end
 
