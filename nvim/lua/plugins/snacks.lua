@@ -162,7 +162,7 @@ local snacks = {
         {
             '<leader>sf',
             function()
-                Snacks.picker.smart {
+                Snacks.picker.files {
                     layout = {
                         preset = 'select',
                     },
