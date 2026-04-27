@@ -64,6 +64,7 @@ local snacks = {
             replace_netrw = true,
             trash = true,
         },
+        image = {},
     },
     keys = {
         {
