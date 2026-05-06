@@ -34,6 +34,7 @@ local conform = { -- Autoformat
             go = { 'goimports', 'gofumpt' },
             php = { 'pint', 'php-cs-fixer', stop_after_first = true },
             python = { 'black' },
+            xml = { 'xmlformat' },
         },
         formatters = {
             ['php-cs-fixer'] = {

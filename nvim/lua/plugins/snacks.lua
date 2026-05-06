@@ -133,13 +133,46 @@ local snacks = {
         {
             '<Leader>sp',
             function()
-                Snacks.picker.grep()
+                Snacks.picker.grep {
+                    layout = {
+                        layout = {
+                            box = 'horizontal',
+                            width = 0.9,
+                            height = 0.87,
+                            {
+                                box = 'vertical',
+                                border = 'rounded',
+                                title = '{title} {live} {flags}',
+                                { win = 'input', height = 1, border = 'bottom' },
+                                { win = 'list', border = 'none' },
+                            },
+                            { win = 'preview', title = '{preview}', width = 0.6, border = 'rounded' },
+                        },
+                    },
+                }
             end,
             desc = '[S]earch [P]roject',
         },
         {
             '<Leader>sd',
             function()
+                local grep_opts = {
+                    layout = {
+                        layout = {
+                            box = 'horizontal',
+                            width = 0.9,
+                            height = 0.87,
+                            {
+                                box = 'vertical',
+                                border = 'rounded',
+                                title = '{title} {live} {flags}',
+                                { win = 'input', height = 1, border = 'bottom' },
+                                { win = 'list', border = 'none' },
+                            },
+                            { win = 'preview', title = '{preview}', width = 0.6, border = 'rounded' },
+                        },
+                    },
+                }
                 if vim.bo.filetype == 'neo-tree' then
                     local state = require('neo-tree.sources.manager').get_state 'filesystem'
                     local node = state.tree:get_node()
@@ -149,11 +182,13 @@ local snacks = {
                         path = vim.fn.fnamemodify(path, ':h')
                     end
 
-                    Snacks.picker.grep { dirs = { path } }
+                    grep_opts.dirs = { path }
+                    Snacks.picker.grep(grep_opts)
                 else
                     vim.ui.input({ prompt = 'Grep in directory: ', default = './', completion = 'dir' }, function(dir)
                         if dir then
-                            Snacks.picker.grep { dirs = { dir } }
+                            grep_opts.dirs = { dir }
+                            Snacks.picker.grep(grep_opts)
                         end
                     end)
                 end

@@ -104,12 +104,7 @@ local nvim_dap = {
                     request = 'attach',
                     host = 'localhost',
                     port = 2345,
-                    substitutePath = {
-                        {
-                            to = '/app',
-                            from = '${workspaceFolder}',
-                        },
-                    },
+                    remotePath = '${workspaceFolder}',
                 },
             },
             delve = {
