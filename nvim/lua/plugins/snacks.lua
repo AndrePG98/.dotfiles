@@ -96,7 +96,7 @@ local snacks = {
             desc = '[S]earch [H]elp',
         },
         {
-            '<leader>sR',
+            '<leader>sr',
             function()
                 Snacks.picker.resume()
             end,
@@ -137,8 +137,8 @@ local snacks = {
                     layout = {
                         layout = {
                             box = 'horizontal',
-                            width = 0.9,
-                            height = 0.87,
+                            width = 0.75,
+                            height = 0.45,
                             {
                                 box = 'vertical',
                                 border = 'rounded',
@@ -146,7 +146,7 @@ local snacks = {
                                 { win = 'input', height = 1, border = 'bottom' },
                                 { win = 'list', border = 'none' },
                             },
-                            { win = 'preview', title = '{preview}', width = 0.6, border = 'rounded' },
+                            -- { win = 'preview', title = '{preview}', width = 0.55, border = 'rounded' },
                         },
                     },
                 }
@@ -160,8 +160,8 @@ local snacks = {
                     layout = {
                         layout = {
                             box = 'horizontal',
-                            width = 0.9,
-                            height = 0.87,
+                            width = 0.85,
+                            height = 0.75,
                             {
                                 box = 'vertical',
                                 border = 'rounded',
@@ -169,7 +169,7 @@ local snacks = {
                                 { win = 'input', height = 1, border = 'bottom' },
                                 { win = 'list', border = 'none' },
                             },
-                            { win = 'preview', title = '{preview}', width = 0.6, border = 'rounded' },
+                            { win = 'preview', title = '{preview}', width = 0.55, border = 'rounded' },
                         },
                     },
                 }
@@ -207,7 +207,7 @@ local snacks = {
             desc = '[S]earch [F]iles',
         },
         {
-            '<leader>sr',
+            '<leader>sR',
             function()
                 Snacks.picker.registers()
             end,
