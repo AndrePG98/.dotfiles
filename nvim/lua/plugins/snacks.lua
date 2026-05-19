@@ -18,7 +18,7 @@ local snacks = {
             sections = {
                 { section = 'header' },
                 { section = 'keys', gap = 1, padding = 2 },
-                { icon = ' ', title = 'Projects', section = 'projects', indent = 3, padding = 2 },
+                -- { icon = ' ', title = 'Projects', section = 'projects', indent = 3, padding = 2 },
                 { section = 'startup' },
             },
         },
