@@ -15,6 +15,6 @@ require('lazy').setup {
     spec = {
         { import = 'plugins' },
     },
-    install = { colorscheme = { 'ayu' } },
+    install = { colorscheme = { 'ayu-mirage' } },
     checker = { enabled = true },
 }
