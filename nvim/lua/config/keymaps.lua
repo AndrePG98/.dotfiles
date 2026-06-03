@@ -10,7 +10,7 @@ map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 map('n', '<C-a>', 'ggVG', { desc = 'Select All' })
 map('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true, desc = 'Next buffer' })
 map('n', '<S-Tab>', ':bprevious<CR>', { noremap = true, silent = true, desc = 'Previous buffer' })
-map('n', '<leader>Q', ':wqa<CR>', { desc = 'Quit editor', noremap = true, silent = true })
+map('n', '<leader>Q', ':qa<CR>', { desc = 'Quit editor', noremap = true, silent = true })
 map('n', '<leader>w', ':w<CR>', { desc = '[W]rite buffer', noremap = true, silent = true })
 
 map({ 'i', 'n', 's' }, '<esc>', function()
