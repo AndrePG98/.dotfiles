@@ -28,21 +28,27 @@ map('n', '<leader>s.', ':SearchAndReplace<CR>', { silent = true, desc = '[S]earc
 
 map({ 'x', 'o' }, 'am', function()
     require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')
-end)
+end, { noremap = true, silent = true, desc = 'function def' })
+
 map({ 'x', 'o' }, 'im', function()
     require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')
-end)
+end, { noremap = true, silent = true, desc = 'function def' })
+
 map({ 'x', 'o' }, 'ac', function()
     require('nvim-treesitter-textobjects.select').select_textobject('@class.outer', 'textobjects')
-end)
+end, { noremap = true, silent = true, desc = 'class' })
+
 map({ 'x', 'o' }, 'ic', function()
     require('nvim-treesitter-textobjects.select').select_textobject('@class.inner', 'textobjects')
-end)
--- -- You can also use captures from other query groups like `locals.scm`
--- map({ 'x', 'o' }, 'as', function()
---     require('nvim-treesitter-textobjects.select').select_textobject('@local.scope', 'locals')
--- end)
---
+end, { noremap = true, silent = true, desc = 'class' })
+
+map({ 'x', 'o' }, 'ip', function()
+    require('nvim-treesitter-textobjects.select').select_textobject('@parameter.inner', 'textobjects')
+end, { noremap = true, silent = true, desc = 'parameter' })
+
+map({ 'x', 'o' }, 'ap', function()
+    require('nvim-treesitter-textobjects.select').select_textobject('@parameter.outer', 'textobjects')
+end, { noremap = true, silent = true, desc = 'parameter' })
 
 map('n', '<leader>at', ':Sidekick cli toggle name=claude<CR>', { desc = '[A]i [T]oggle', silent = true })
 
