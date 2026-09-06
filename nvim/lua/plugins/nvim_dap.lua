@@ -45,42 +45,38 @@ local nvim_dap = {
             },
         }
 
-        dap.adapters = {
-            php = {
-                type = 'executable',
-                command = 'node',
-                args = { vim.fn.stdpath 'data' .. '/mason/packages/php-debug-adapter/extension/out/phpDebug.js' },
-            },
+        dap.adapters.php = {
+            type = 'executable',
+            command = 'node',
+            args = { vim.fn.stdpath 'data' .. '/mason/packages/php-debug-adapter/extension/out/phpDebug.js' },
         }
 
-        dap.configurations = {
-            php = {
-                {
-                    type = 'php',
-                    request = 'launch',
-                    name = 'Listen for xdebug',
-                    port = 9003,
-                    console = 'integratedTerminal',
+        dap.configurations.php = {
+            {
+                type = 'php',
+                request = 'launch',
+                name = 'Listen for xdebug',
+                port = 9003,
+                console = 'integratedTerminal',
+            },
+            {
+                type = 'php',
+                request = 'launch',
+                name = 'Listen for xdebug (Docker with /var/www/html)',
+                port = 9003,
+                console = 'integratedTerminal',
+                pathMappings = {
+                    ['/var/www/html'] = get_local_root,
                 },
-                {
-                    type = 'php',
-                    request = 'launch',
-                    name = 'Listen for xdebug (Docker with /var/www/html)',
-                    port = 9003,
-                    console = 'integratedTerminal',
-                    pathMappings = {
-                        ['/var/www/html'] = get_local_root,
-                    },
-                },
-                {
-                    type = 'php',
-                    request = 'launch',
-                    name = 'Launch CLI script',
-                    port = 9003,
-                    program = '${file}',
-                    cwd = vim.fn.getcwd(),
-                    runtimeExecutable = 'php',
-                },
+            },
+            {
+                type = 'php',
+                request = 'launch',
+                name = 'Launch CLI script',
+                port = 9003,
+                program = '${file}',
+                cwd = vim.fn.getcwd(),
+                runtimeExecutable = 'php',
             },
         }
 
