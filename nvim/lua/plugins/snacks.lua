@@ -214,14 +214,6 @@ local snacks = {
             desc = '[S]earch [R]egisters',
         },
         {
-            '<C-\\>',
-            function()
-                Snacks.terminal.toggle()
-            end,
-            desc = 'Toggle Terminal',
-            mode = { 'n', 't' },
-        },
-        {
             '<leader>tg',
             function()
                 Snacks.lazygit {}
