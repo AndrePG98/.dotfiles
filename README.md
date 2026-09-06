@@ -29,7 +29,7 @@ following languages/runtimes to be available in PATH:
 | `python` / `pip` | basedpyright, black |
 | `php` / `composer` | intelephense, phpstan, pint, php-cs-fixer |
 | `cargo` (Rust) | Some Mason packages are distributed as Rust binaries |
-| `java` / `javac` | nvim-java plugin |
+| `java` / `javac` | jdtls (basic Java LSP support) |
 
 > You only need the runtimes for languages you actually develop in.
 > Run `:checkhealth mason` to verify what Mason can see.
