@@ -4,7 +4,6 @@ local nvim_jdtls = {
     dependencies = {
         'mfussenegger/nvim-dap',
     },
-
 }
 
 return { nvim_jdtls }

@@ -48,8 +48,15 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-    pattern = { 'dap-view', 'dap-view-term', 'dap-repl' }, -- dap-repl is set by `nvim-dap`
+    pattern = { 'dapui_scopes', 'dapui_breakpoints', 'dapui_stacks', 'dapui_watches', 'dapui_console', 'dapui_hover', 'dap-repl' }, -- dap-repl is set by `nvim-dap`
     callback = function(args)
         vim.keymap.set('n', 'q', '<C-w>q', { buffer = args.buf })
+    end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'dap-repl',
+    callback = function()
+        require('dap.ext.autocompl').attach()
     end,
 })

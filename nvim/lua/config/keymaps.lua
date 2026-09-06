@@ -13,9 +13,23 @@ map('n', '<S-Tab>', ':bprevious<CR>', { noremap = true, silent = true, desc = 'P
 map('n', '<leader>Q', ':qa<CR>', { desc = 'Quit editor', noremap = true, silent = true })
 map('n', '<leader>w', ':w<CR>', { desc = '[W]rite buffer', noremap = true, silent = true })
 
-map('n', '<leader>gdo', ':DiffviewOpen<CR>', { desc = '[D]iffview [O]pen', noremap = true, silent = true })
-map('n', '<leader>gdc', ':DiffviewClose<CR>', { desc = '[D]iffview [C]lose', noremap = true, silent = true })
-map('n', '<leader>gdf', ':DiffviewToggleFiles<CR>', { desc = '[D]iffview [F]iles', noremap = true, silent = true })
+map('n', '<leader>gm', ':Gvdiffsplit!<CR>', { desc = '[G]it [M]erge conflict (3-way)', noremap = true, silent = true })
+
+-- From the MERGED (middle) buffer, plain do/dp is ambiguous (two other
+-- windows: LOCAL and REMOTE), so these numbered aliases pick a side.
+map('n', '<leader>gh', function()
+    return vim.wo.diff and ':diffget //2<CR>' or ''
+end, { expr = true, desc = '[G]it diff get from LOCAL (ours)' })
+
+map('n', '<leader>gl', function()
+    return vim.wo.diff and ':diffget //3<CR>' or ''
+end, { expr = true, desc = '[G]it diff get from REMOTE (theirs)' })
+
+-- LOCAL/REMOTE are read-only blobs, so only put (not get) works from there:
+-- it pushes into the one modifiable buffer (MERGED) without touching them.
+map('n', '<leader>gp', function()
+    return vim.wo.diff and 'dp' or ''
+end, { expr = true, desc = '[G]it diff [P]ut hunk into MERGED' })
 
 map({ 'i', 'n', 's' }, '<esc>', function()
     vim.cmd 'noh'

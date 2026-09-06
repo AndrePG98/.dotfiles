@@ -2,18 +2,16 @@ local nvim_dap = {
     'mfussenegger/nvim-dap',
     event = 'VeryLazy',
     dependencies = {
-        -- 'rcarriga/nvim-dap-ui',
+        'rcarriga/nvim-dap-ui',
         'nvim-neotest/nvim-nio',
         'theHamsta/nvim-dap-virtual-text',
         'jay-babu/mason-nvim-dap.nvim',
         'leoluz/nvim-dap-go',
-        'igorlfs/nvim-dap-view',
     },
     config = function()
         local mason_dap = require 'mason-nvim-dap'
         local dap = require 'dap'
-        -- local ui = require 'dapui'
-        local dap_view = require 'dap-view'
+        local dapui = require 'dapui'
         local dap_virtual_text = require 'nvim-dap-virtual-text'
         local dap_go = require 'dap-go'
 
@@ -84,15 +82,6 @@ local nvim_dap = {
                     runtimeExecutable = 'php',
                 },
             },
-            java = {
-                {
-                    type = 'java',
-                    request = 'attach',
-                    name = 'Remote Debug',
-                    hostName = '127.0.0.1',
-                    port = 5005,
-                },
-            },
         }
 
         dap_go.setup {
@@ -121,14 +110,36 @@ local nvim_dap = {
             end
         end
 
-        dap_view.setup {
-            follow_tab = true,
-            windows = {
-                terminal = {
-                    hide = { 'delve' },
+        dapui.setup {
+            layouts = {
+                {
+                    elements = {
+                        { id = 'scopes', size = 0.6 },
+                        { id = 'stacks', size = 0.4 },
+                    },
+                    size = 40,
+                    position = 'left',
+                },
+                {
+                    elements = {
+                        'repl',
+                        'console',
+                    },
+                    size = 10,
+                    position = 'bottom',
                 },
             },
         }
+
+        dap.listeners.after.event_initialized.dapui_config = function()
+            dapui.open()
+        end
+        dap.listeners.before.event_terminated.dapui_config = function()
+            dapui.close()
+        end
+        dap.listeners.before.event_exited.dapui_config = function()
+            dapui.close()
+        end
 
         dap_virtual_text.setup {
             enabled = true,
@@ -153,7 +164,6 @@ local nvim_dap = {
             '<leader>dc',
             function()
                 require('dap').continue()
-                require('dap-view').open()
             end,
             desc = 'Continue',
         },
@@ -189,7 +199,7 @@ local nvim_dap = {
         {
             '<leader>dt',
             function()
-                require('dap-view').toggle()
+                require('dapui').toggle()
             end,
             desc = 'Toggle DAP UI',
         },
@@ -205,7 +215,6 @@ local nvim_dap = {
             '<leader>dq',
             function()
                 require('dap').terminate()
-                require('dap-view').close()
             end,
             desc = 'Terminate',
         },
@@ -220,7 +229,7 @@ local nvim_dap = {
         {
             '<leader>da',
             function()
-                require('dap-view').add_expr()
+                require('dapui').elements.watches.add()
             end,
             desc = 'Add expression',
         },
