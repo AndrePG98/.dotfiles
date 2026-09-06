@@ -20,21 +20,6 @@ local lualine = {
                     'filetype',
                     icon_only = true,
                 },
-                {
-                    function()
-                        return ''
-                    end,
-                    color = function()
-                        local status = require('sidekick.status').get()
-                        if status then
-                            return status.kind == 'Error' and 'DiagnosticError' or status.busy and 'DiagnosticWarn' or 'Special'
-                        end
-                    end,
-                    cond = function()
-                        local status = require 'sidekick.status'
-                        return status.get() ~= nil
-                    end,
-                },
             },
             lualine_y = {},
         },

@@ -68,10 +68,6 @@ map({ 'x', 'o' }, 'ap', function()
     require('nvim-treesitter-textobjects.select').select_textobject('@parameter.outer', 'textobjects')
 end, { noremap = true, silent = true, desc = 'parameter' })
 
-map('n', '<leader>at', ':Sidekick cli toggle name=claude<CR>', { desc = '[A]i [T]oggle', silent = true })
-
-map('n', '<leader>ap', ':Sidekick cli prompt<CR>', { desc = '[A]i pre-built [P]rompts', silent = true })
-
 map('n', '<leader>tc', function()
     vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
 end, { desc = '[T]oggle [C]ode Lens' })
