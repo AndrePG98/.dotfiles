@@ -19,11 +19,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     end,
 })
 
-local filetypes = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte', 'markdown', 'vue', 'python', 'java', 'yaml', 'json' }
-
 -- Treesitter syntax highlighting
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = filetypes,
+    pattern = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte', 'markdown', 'vue', 'python', 'java', 'yaml', 'json' },
     callback = function(ev)
         local ft = vim.bo[ev.buf].filetype
 
