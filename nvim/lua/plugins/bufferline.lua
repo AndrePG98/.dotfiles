@@ -5,9 +5,6 @@ local bufferline = {
     opts = {
         options = {
             separator_style = 'slant',
-            offsets = {
-                { filetype = 'neo-tree', text = 'File Explorer', text_align = 'center', padding = '0', separator = true },
-            },
             diagnostics = 'nvim_lsp',
         },
     },

@@ -112,9 +112,12 @@ local nvim_dap = {
             },
         }
 
+        local dap_go_adapter = dap.adapters.go
         dap.adapters.go = function(cb, config)
             if config.mode == 'remote' then
                 cb { type = 'server', host = config.host, port = config.port }
+            else
+                dap_go_adapter(cb, config)
             end
         end
 

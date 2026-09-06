@@ -12,6 +12,7 @@ for _, jar in ipairs(vim.split(vim.fn.glob(mason_path .. '/java-test/extension/s
 end
 
 local jdtls = {
+    settings = {},
     init_options = {
         bundles = jdtls_bundles,
     },
