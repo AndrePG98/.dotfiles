@@ -21,14 +21,15 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 -- Treesitter syntax highlighting
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'go', 'php', 'lua', 'dockerfile', 'sql', 'typescript', 'javascript', 'svelte', 'markdown', 'vue', 'python', 'java', 'yaml', 'json' },
     callback = function(ev)
         local ft = vim.bo[ev.buf].filetype
+        if ft == '' then
+            return
+        end
 
         local ok, _ = pcall(vim.treesitter.get_parser, ev.buf, ft)
 
         if not ok then
-            vim.notify('No Tree-sitter parser for ' .. ft, vim.log.levels.WARN)
             return
         end
 
