@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 vim.api.nvim_create_autocmd('FileType', {
     callback = function(ev)
         local ft = vim.bo[ev.buf].filetype
-        if ft == '' then
+        if ft == '' or vim.bo[ev.buf].buftype ~= '' then
             return
         end
 
