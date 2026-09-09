@@ -129,7 +129,7 @@ local lint = {
 
                 -- Run linters.
                 if #names > 0 then
-                    lint.try_lint(names)
+                    lint.try_lint(names, { cwd = vim.fn.expand '%:p:h' })
                 end
             end
 
