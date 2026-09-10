@@ -36,12 +36,6 @@ map({ 'i', 'n', 's' }, '<esc>', function()
     return '<esc>'
 end, { expr = true, desc = 'Escape and Clear hlsearch' })
 
-map({ 'n', 'x' }, 'grA', function()
-    require('tiny-code-action').code_action {}
-end, { noremap = true, silent = true, desc = '[G]oto All Code [A]ction' })
-
-map({ 'n', 'x' }, 'gra', ':lua require("fastaction").code_action()<CR>', { desc = '[G]oto cursor code [A]ctions' })
-
 map('n', '<leader>s.', ':SearchAndReplace<CR>', { silent = true, desc = '[S]earch and replace' })
 
 map({ 'x', 'o' }, 'am', function()

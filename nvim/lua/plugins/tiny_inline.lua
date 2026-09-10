@@ -16,27 +16,4 @@ local inline = {
     },
 }
 
-local actions = {
-    'rachartier/tiny-code-action.nvim',
-    dependencies = {
-        { 'nvim-lua/plenary.nvim' },
-        {
-            'folke/snacks.nvim',
-            opts = {
-                terminal = {},
-            },
-        },
-    },
-    event = 'LspAttach',
-    opts = {
-        picker = 'snacks',
-    },
-}
-
-local fastaction = {
-    'Chaitanyabsprip/fastaction.nvim',
-    ---@type FastActionConfig
-    opts = {},
-}
-
-return { inline, actions, fastaction }
+return { inline }
