@@ -33,3 +33,17 @@ following languages/runtimes to be available in PATH:
 
 > You only need the runtimes for languages you actually develop in.
 > Run `:checkhealth mason` to verify what Mason can see.
+
+## Godot Setup
+
+Default ports: GDScript LSP `6005`, debugger `6006`. 
+These can be changed in **Editor Settings → Network** then **Language Server** and **Debug Adapter** respectively.
+But they need to map `/lsp/gdscript` ( see default [lsp config](https://github.com/neovim/nvim-lspconfig/blob/master/lsp/gdscript.lua)) 
+and `/dap/godot` 
+
+In Godot, go to **Editor Settings → Text Editor → External Editor** and set:
+- Use External Editor: on
+- Exec Path: path to `nvim`
+- Exec Flags: `--server 127.0.0.1:55432 --remote-send "<C-\><C-N>:e {file}<CR>:call cursor({line},{col})<CR>"`
+
+The port (`55432`) must match the one in `nvim/lua/config/godot.lua`.
