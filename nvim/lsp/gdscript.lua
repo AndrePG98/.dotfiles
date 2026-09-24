@@ -1,0 +1,3 @@
+local gdscript = {}
+
+return gdscript
