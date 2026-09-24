@@ -35,6 +35,7 @@ local conform = { -- Autoformat
             php = { 'pint', 'php-cs-fixer', stop_after_first = true },
             python = { 'black' },
             xml = { 'xmlformat' },
+            gdscript = { 'gdformat' },
             xslt = { 'xmlformat' },
         },
         formatters = {
