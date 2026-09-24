@@ -13,23 +13,6 @@ local nvim_dap = {
         local dap = require 'dap'
         local dapui = require 'dapui'
         local dap_virtual_text = require 'nvim-dap-virtual-text'
-        local dap_go = require 'dap-go'
-
-        local function get_local_root()
-            local co = coroutine.running()
-            Snacks.input({
-                prompt = 'Docker remote /var/www/html maps to (blank for cwd): ',
-                default = '',
-                completion = 'file',
-            }, function(value)
-                coroutine.resume(co, value)
-            end)
-            local input = coroutine.yield()
-            if not input or input == '' then
-                return vim.fn.getcwd()
-            end
-            return vim.fn.expand(input)
-        end
 
         vim.fn.sign_define('DapBreakpoint', { text = '\u{f111}', texthl = 'DapBreakpoint' })
         vim.fn.sign_define('DapBreakpointCondition', { text = '\u{f192}', texthl = 'DapBreakpointCondition' })
@@ -45,81 +28,7 @@ local nvim_dap = {
             },
         }
 
-        dap.adapters.php = {
-            type = 'executable',
-            command = 'node',
-            args = { vim.fn.stdpath 'data' .. '/mason/packages/php-debug-adapter/extension/out/phpDebug.js' },
-        }
-
-        dap.configurations.php = {
-            {
-                type = 'php',
-                request = 'launch',
-                name = 'Listen for xdebug',
-                port = 9003,
-                console = 'integratedTerminal',
-            },
-            {
-                type = 'php',
-                request = 'launch',
-                name = 'Listen for xdebug (Docker with /var/www/html)',
-                port = 9003,
-                console = 'integratedTerminal',
-                pathMappings = {
-                    ['/var/www/html'] = get_local_root,
-                },
-            },
-            {
-                type = 'php',
-                request = 'launch',
-                name = 'Launch CLI script',
-                port = 9003,
-                program = '${file}',
-                cwd = vim.fn.getcwd(),
-                runtimeExecutable = 'php',
-            },
-        }
-
-        dap.adapters.godot = {
-            type = 'server',
-            host = '127.0.0.1',
-            port = 6006,
-        }
-
-        dap.configurations.gdscript = {
-            {
-                type = 'godot',
-                request = 'launch',
-                name = 'Launch Godot',
-                project = '${workspaceFolder}',
-            },
-        }
-
-        dap_go.setup {
-            dap_configurations = {
-                {
-                    type = 'go',
-                    name = 'Attach remote',
-                    mode = 'remote',
-                    request = 'attach',
-                    host = 'localhost',
-                    port = 2345,
-                    remotePath = '${workspaceFolder}',
-                },
-            },
-            delve = {
-                path = vim.fn.has 'win32' == 1 and vim.fn.stdpath 'data' .. '\\mason\\packages\\delve\\dlv.exe' or 'dlv',
-            },
-        }
-
-        local dap_go_adapter = dap.adapters.go
-        dap.adapters.go = function(cb, config)
-            if config.mode == 'remote' then
-                cb { type = 'server', host = config.host, port = config.port }
-            else
-                dap_go_adapter(cb, config)
-            end
-        end
+        require('config.dap').setup(dap)
 
         dapui.setup {
             layouts = {
