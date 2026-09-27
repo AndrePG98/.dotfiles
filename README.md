@@ -44,6 +44,6 @@ and `/dap/godot`
 In Godot, go to **Editor Settings → Text Editor → External Editor** and set:
 - Use External Editor: on
 - Exec Path: path to `nvim`
-- Exec Flags: `--server 127.0.0.1:55432 --remote-send "<C-\><C-N>:e {file}<CR>:call cursor({line},{col})<CR>"`
+- Exec Flags: `--server 127.0.0.1:55432 --remote-send "<C-\><C-N>:e {file}<CR>"`
 
 The port (`55432`) must match the one in `nvim/lua/config/godot.lua`.
