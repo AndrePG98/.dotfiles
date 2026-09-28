@@ -14,7 +14,7 @@ map('n', '<leader>Q', ':qa<CR>', { desc = 'Quit editor', noremap = true, silent 
 map('n', '<leader>w', ':w<CR>', { desc = '[W]rite buffer', noremap = true, silent = true })
 
 map('n', '<leader>gm', ':Gvdiffsplit!<CR>', { desc = '[G]it [M]erge conflict (3-way)', noremap = true, silent = true })
-map('n', '<leader>gh', function()
+map('n', '<leader>gk', function()
     return vim.wo.diff and ':diffget //2<CR>' or ''
 end, { expr = true, desc = '[G]it diff get from LOCAL (ours)' })
 
@@ -22,7 +22,7 @@ map('n', '<leader>gl', function()
     return vim.wo.diff and ':diffget //3<CR>' or ''
 end, { expr = true, desc = '[G]it diff get from REMOTE (theirs)' })
 
-map('n', '<leader>gH', function()
+map('n', '<leader>gK', function()
     return vim.wo.diff and ':%diffget //2<CR>' or ''
 end, { expr = true, desc = '[G]it diff get ALL from LOCAL (ours)' })
 
@@ -31,6 +31,7 @@ map('n', '<leader>gL', function()
 end, { expr = true, desc = '[G]it diff get ALL from REMOTE (theirs)' })
 
 map('n', '<leader>ga', ':Gwrite<CR>', { desc = '[G]it write (save + stage current file)', noremap = true, silent = true })
+map('n', '<leader>gh', ':vertical Git log --follow -p -- %<CR>', { desc = '[G]it show file [H]istory', noremap = true, silent = true })
 
 map({ 'i', 'n', 's' }, '<esc>', function()
     vim.cmd 'noh'
