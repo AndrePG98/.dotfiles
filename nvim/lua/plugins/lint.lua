@@ -27,51 +27,13 @@ local lint = {
             },
             -- LazyVim extension to easily override linter options
             -- or add custom linters.
-            ---@type table<string,table>
+            ---@type table<string,table|fun():table>
             linters = {
-                -- phpcs = {
-                --     cmd = function()
-                --         local root = vim.fn.getcwd()
-                --         local candidate = root .. '/vendor/bin/phpcs'
-                --         if vim.fn.executable(candidate) == 1 then
-                --             return candidate
-                --         end
-                --         -- check one level down
-                --         local dirs = vim.fn.glob(root .. '/*/vendor/bin/phpcs', false, true)
-                --         if #dirs > 0 then
-                --             return dirs[1]
-                --         end
-                --         return 'phpcs'
-                --     end,
-                -- },
-                -- phpstan = {
-                --     condition = function()
-                --         local root = vim.fn.getcwd()
-                --         local candidate = root .. '/vendor/bin/phpstan'
-                --         if vim.fn.executable(candidate) == 1 then
-                --             return true
-                --         end
-                --         -- check one level down
-                --         local dirs = vim.fn.glob(root .. '/*/vendor/bin/phpstan', false, true)
-                --         if #dirs > 0 then
-                --             return true
-                --         end
-                --         return false
-                --     end,
-                --     cmd = function()
-                --         local root = vim.fn.getcwd()
-                --         local candidate = root .. '/vendor/bin/phpstan'
-                --         if vim.fn.executable(candidate) == 1 then
-                --             return candidate
-                --         end
-                --         -- check one level down
-                --         local dirs = vim.fn.glob(root .. '/*/vendor/bin/phpstan', false, true)
-                --         if #dirs > 0 then
-                --             return dirs[1]
-                --         end
-                --         return vim.fn.stdpath 'data' .. '/mason/bin/phpstan'
-                --     end,
-                -- },
+                phpstan = function()
+                    local linter = vim.deepcopy(require 'lint.linters.phpstan')
+                    linter.cwd = vim.fs.root(0, 'composer.json')
+                    return linter
+                end,
             },
         },
         config = function(_, opts)
@@ -130,7 +92,14 @@ local lint = {
 
                 -- Run linters.
                 if #names > 0 then
-                    lint.try_lint(names, { cwd = vim.fn.expand '%:p:h' })
+                    -- Default to the file's directory, but let linters set their own cwd.
+                    local dir = vim.fn.expand '%:p:h'
+                    lint.try_lint(names, {
+                        wrap_linter = function(linter)
+                            linter.cwd = linter.cwd or dir
+                            return linter
+                        end,
+                    })
                 end
             end
 
