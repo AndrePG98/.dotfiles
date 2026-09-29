@@ -39,6 +39,16 @@ local snacks = {
         input = {},
         bufdelete = {},
         picker = {
+            win = {
+                input = {
+                    keys = {
+                        ['<S-Tab>'] = { 'list_up', mode = { 'i', 'n', 'x' } },
+                        ['<Tab>'] = { 'list_down', mode = { 'i', 'n', 'x' } },
+                        ['<c-j>'] = 'select_and_next',
+                        ['<c-k>'] = 'select_and_prev',
+                    },
+                },
+            },
             sources = {
                 lsp_symbols = {
                     filter = {
