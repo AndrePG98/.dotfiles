@@ -35,15 +35,15 @@ local nvim_dap = {
                 {
                     elements = {
                         { id = 'scopes', size = 0.6 },
-                        { id = 'stacks', size = 0.4 },
+                        { id = 'watches', size = 0.4 },
                     },
                     size = 40,
                     position = 'left',
                 },
                 {
                     elements = {
-                        'repl',
-                        'console',
+                        { id = 'repl', size = 0.6 },
+                        { id = 'console', size = 0.4 },
                     },
                     size = 10,
                     position = 'bottom',
